@@ -1,8 +1,11 @@
 import { Edges, Grid, OrbitControls, TransformControls } from "@react-three/drei";
 import { Canvas, type ThreeEvent, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, type RefObject } from "react";
 import * as THREE from "three";
-import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import type {
+  OrbitControls as OrbitControlsImpl,
+  TransformControls as TransformControlsImpl,
+} from "three-stdlib";
 import type {
   CameraState,
   ShipPart,
@@ -34,6 +37,8 @@ export function ShipCanvas({
   onTransformPart,
   onCameraChange,
 }: ShipCanvasProps) {
+  const transformControls = useRef<TransformControlsImpl>(null!);
+
   return (
     <Canvas
       aria-label="3D spaceship editing canvas"
@@ -71,6 +76,7 @@ export function ShipCanvas({
             part={part}
             selected={part.id === selectedPartId}
             transformMode={transformMode}
+            transformControls={transformControls}
             onSelect={onSelectPart}
             onTransform={onTransformPart}
           />
@@ -90,6 +96,7 @@ interface EditablePartProps {
   part: ShipPart;
   selected: boolean;
   transformMode: TransformMode;
+  transformControls: RefObject<TransformControlsImpl>;
   onSelect: (id: string) => void;
   onTransform: ShipCanvasProps["onTransformPart"];
 }
@@ -98,6 +105,7 @@ function EditablePart({
   part,
   selected,
   transformMode,
+  transformControls,
   onSelect,
   onTransform,
 }: EditablePartProps) {
@@ -105,6 +113,7 @@ function EditablePart({
 
   const handleSelect = (event: ThreeEvent<PointerEvent>) => {
     event.stopPropagation();
+    if (isTransformHandleActive(transformControls.current)) return;
     onSelect(part.id);
   };
 
@@ -155,19 +164,31 @@ function EditablePart({
     <>
       {object}
       {selected && (
-        <TransformControls
-          object={group}
-          mode={transformMode}
-          space={transformMode === "translate" ? "world" : "local"}
-          translationSnap={0.25}
-          rotationSnap={Math.PI / 12}
-          scaleSnap={0.1}
-          size={0.82}
-          onMouseUp={commitTransform}
-        />
+        <group onPointerDown={(event) => event.stopPropagation()}>
+          <TransformControls
+            ref={transformControls}
+            object={group}
+            mode={transformMode}
+            space={transformMode === "translate" ? "world" : "local"}
+            translationSnap={0.25}
+            rotationSnap={Math.PI / 12}
+            scaleSnap={0.1}
+            size={0.82}
+            onMouseUp={commitTransform}
+          />
+        </group>
       )}
     </>
   );
+}
+
+function isTransformHandleActive(controls: TransformControlsImpl | null): boolean {
+  if (!controls) return false;
+  const state = controls as unknown as {
+    axis: string | null;
+    dragging: boolean;
+  };
+  return state.axis !== null || state.dragging;
 }
 
 function ShapeGeometry({ type }: { type: ShipPart["type"] }) {
