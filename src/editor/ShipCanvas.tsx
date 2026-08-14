@@ -38,6 +38,12 @@ export function ShipCanvas({
   onCameraChange,
 }: ShipCanvasProps) {
   const transformControls = useRef<TransformControlsImpl>(null!);
+  const selectAfterControls = (id: string | null) => {
+    queueMicrotask(() => {
+      if (isTransformHandleActive(transformControls.current)) return;
+      onSelectPart(id);
+    });
+  };
 
   return (
     <Canvas
@@ -46,7 +52,7 @@ export function ShipCanvas({
       camera={{ position: camera.position, fov: 42, near: 0.1, far: 240 }}
       dpr={[1, 1.5]}
       gl={{ antialias: true, powerPreference: "high-performance" }}
-      onPointerMissed={() => onSelectPart(null)}
+      onPointerMissed={() => selectAfterControls(null)}
     >
       <color attach="background" args={["#020907"]} />
       <fog attach="fog" args={["#020907", 24, 72]} />
@@ -77,7 +83,7 @@ export function ShipCanvas({
             selected={part.id === selectedPartId}
             transformMode={transformMode}
             transformControls={transformControls}
-            onSelect={onSelectPart}
+            onSelect={selectAfterControls}
             onTransform={onTransformPart}
           />
         ))}
@@ -113,7 +119,6 @@ function EditablePart({
 
   const handleSelect = (event: ThreeEvent<PointerEvent>) => {
     event.stopPropagation();
-    if (isTransformHandleActive(transformControls.current)) return;
     onSelect(part.id);
   };
 
@@ -164,19 +169,17 @@ function EditablePart({
     <>
       {object}
       {selected && (
-        <group onPointerDown={(event) => event.stopPropagation()}>
-          <TransformControls
-            ref={transformControls}
-            object={group}
-            mode={transformMode}
-            space={transformMode === "translate" ? "world" : "local"}
-            translationSnap={0.25}
-            rotationSnap={Math.PI / 12}
-            scaleSnap={0.1}
-            size={0.82}
-            onMouseUp={commitTransform}
-          />
-        </group>
+        <TransformControls
+          ref={transformControls}
+          object={group}
+          mode={transformMode}
+          space={transformMode === "translate" ? "world" : "local"}
+          translationSnap={0.25}
+          rotationSnap={Math.PI / 12}
+          scaleSnap={0.1}
+          size={0.82}
+          onMouseUp={commitTransform}
+        />
       )}
     </>
   );

@@ -286,24 +286,39 @@ export default function App() {
 
   useEffect(() => {
     let active = true;
-    void Promise.all([api.getSession(), api.listDesigns()])
-      .then(([session, savedDesigns]) => {
+    const initialize = async () => {
+      try {
+        const [session, savedDesigns] = await Promise.all([
+          api.getSession(),
+          api.listDesigns(),
+        ]);
         if (!active) return;
         setUser(session);
         setDesigns(savedDesigns);
-      })
-      .catch((error: unknown) => {
+
+        const latestDesign = savedDesigns[0];
+        if (!latestDesign) return;
+        try {
+          const saved = await api.getDesign(latestDesign.id);
+          if (active) applySavedDesign(saved);
+        } catch (error) {
+          if (active) setNotice(errorMessage(error));
+        }
+      } catch (error) {
         if (!active) return;
         if (error instanceof ApiError && error.status === 401) setUser(null);
         else {
           setUser(null);
           setNotice(errorMessage(error));
         }
-      });
+      }
+    };
+
+    void initialize();
     return () => {
       active = false;
     };
-  }, []);
+  }, [applySavedDesign]);
 
   useEffect(() => {
     if (!user) return;
@@ -395,7 +410,7 @@ export default function App() {
           <select
             aria-label="Open saved design"
             title="Open saved design"
-            value=""
+            value={designId ?? ""}
             onChange={(event) => {
               if (!event.target.value) return;
               void loadDesign(event.target.value).catch((error) =>
