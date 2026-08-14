@@ -1,16 +1,48 @@
 {
   "name": "shipwright",
-  "version": "1.0.0",
-  "description": "Shipwright is a browser-based collaborative editing environment for building spaceship models rendered in Three.js, where an LLM and a human author can build spaceship models in the style of classic games like [X-Wing](<https://en.wikipedia.org/wiki/Star_Wars:_X-Wing_(video_game)>), [TIE Fighter](https://en.wikipedia.org/wiki/Star_Wars:_TIE_Fighter) or [Wing Commander](https://en.wikipedia.org/wiki/Wing_Commander_III:_Heart_of_the_Tiger).",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Kevin Whinnery",
-  "license": "MIT",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A model-aware 3D spaceship editor built for ChatGPT Sites.",
   "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vite",
+    "build": "WRANGLER_LOG_PATH=.wrangler/wrangler.log tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "lint": "eslint . --ignore-pattern dist",
+    "db:generate": "drizzle-kit generate"
+  },
+  "dependencies": {
+    "@react-three/drei": "10.7.8",
+    "@react-three/fiber": "9.7.0",
+    "drizzle-orm": "0.45.2",
+    "hono": "4.13.2",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "three": "0.185.1"
+  },
   "devDependencies": {
-    "prettier": "^3.9.6"
+    "@cloudflare/vite-plugin": "1.37.1",
+    "@cloudflare/workers-types": "4.20260702.1",
+    "@eslint/js": "9.39.4",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@types/three": "0.185.0",
+    "@vitejs/plugin-react": "6.0.2",
+    "drizzle-kit": "0.31.10",
+    "eslint": "9.39.4",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.4",
+    "globals": "16.4.0",
+    "prettier": "3.9.6",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.59.3",
+    "vite": "8.0.13",
+    "webmcp-types": "0.1.3",
+    "wrangler": "4.92.0"
   }
 }
