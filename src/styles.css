@@ -1016,7 +1016,8 @@ a:focus-visible {
   }
 
   .design-controls select {
-    display: none;
+    flex-basis: 126px;
+    min-width: 90px;
   }
 
   .notice {
@@ -1049,7 +1050,6 @@ a:focus-visible {
 
   .wordmark small,
   .header-status,
-  .design-controls select,
   .button-quiet {
     display: none;
   }
@@ -1060,6 +1060,11 @@ a:focus-visible {
 
   .design-name-field {
     max-width: none;
+    min-width: 80px;
+  }
+
+  .design-controls select {
+    flex-basis: 118px;
   }
 
   .tool-rail {
@@ -1153,6 +1158,27 @@ a:focus-visible {
     right: 14px;
     bottom: 134px;
     left: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .command-header {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .wordmark {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .wordmark > div,
+  .design-name-field {
+    display: none;
+  }
+
+  .design-controls select {
+    flex: 1 1 auto;
+    min-width: 0;
   }
 }
 

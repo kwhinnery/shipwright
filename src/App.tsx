@@ -306,6 +306,28 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (!user) return;
+    let refreshing = false;
+
+    const refreshWhenActive = () => {
+      if (document.visibilityState !== "visible" || refreshing) return;
+      refreshing = true;
+      void refreshDesigns()
+        .catch((error: unknown) => setNotice(errorMessage(error)))
+        .finally(() => {
+          refreshing = false;
+        });
+    };
+
+    window.addEventListener("focus", refreshWhenActive);
+    document.addEventListener("visibilitychange", refreshWhenActive);
+    return () => {
+      window.removeEventListener("focus", refreshWhenActive);
+      document.removeEventListener("visibilitychange", refreshWhenActive);
+    };
+  }, [refreshDesigns, user]);
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       if (target?.matches("input, textarea, select, [contenteditable='true']")) return;
@@ -372,6 +394,7 @@ export default function App() {
           </label>
           <select
             aria-label="Open saved design"
+            title="Open saved design"
             value=""
             onChange={(event) => {
               if (!event.target.value) return;
