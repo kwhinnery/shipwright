@@ -571,10 +571,6 @@ a:focus-visible {
   pointer-events: none;
 }
 
-.viewport-label-top {
-  top: 16px;
-}
-
 .viewport-label-bottom {
   bottom: 16px;
 }

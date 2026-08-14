@@ -512,10 +512,6 @@ export default function App() {
 
       <section className="viewport-panel" aria-label="Ship editor viewport">
         <div className="viewport-frame">
-          <div className="viewport-label viewport-label-top">
-            <span>PROJECTION 01</span>
-            <span>WORLD GRID 1.00</span>
-          </div>
           <Suspense
             fallback={
               <div className="canvas-loading" role="status">
