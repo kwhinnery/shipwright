@@ -1,0 +1,1692 @@
+{
+  "format": "shipwright-design",
+  "formatVersion": 1,
+  "name": "TIE/ln Space Superiority Fighter",
+  "data": {
+    "version": 1,
+    "parts": [
+      {
+        "id": "ed9e1d14-136c-4e52-b593-4d30ed51301d",
+        "name": "Port cockpit cheek",
+        "type": "wedge",
+        "color": "#69777d",
+        "texture": "plated",
+        "position": [
+          -0.58,
+          -0.54,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.08
+        ],
+        "scale": [
+          0.38,
+          0.22,
+          0.7
+        ]
+      },
+      {
+        "id": "d7c0067d-7edd-4806-9782-00351e919eb2",
+        "name": "Cockpit pressure sphere",
+        "type": "sphere",
+        "color": "#7d8b91",
+        "texture": "plated",
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.7,
+          2.55,
+          2.7
+        ]
+      },
+      {
+        "id": "ea60f235-5724-40d5-a23e-9f6b2d52285c",
+        "name": "Port upper cap rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          4.56,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          0.17,
+          2.76
+        ]
+      },
+      {
+        "id": "4ea0c37d-1196-495e-b22a-8d2d40b0d786",
+        "name": "Port lower cap rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          -4.56,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          0.17,
+          2.76
+        ]
+      },
+      {
+        "id": "a1da3941-ce7d-43fc-8167-71f9042d8379",
+        "name": "Starboard cockpit cheek",
+        "type": "wedge",
+        "color": "#69777d",
+        "texture": "plated",
+        "position": [
+          0.58,
+          -0.54,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0.08
+        ],
+        "scale": [
+          0.38,
+          0.22,
+          0.7
+        ]
+      },
+      {
+        "id": "5958bdba-1928-4338-9e22-1957300d9cf8",
+        "name": "Port upper leading rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          2.28,
+          -1.98
+        ],
+        "rotation": [
+          0.271,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          4.68,
+          0.16
+        ]
+      },
+      {
+        "id": "8ad507fd-47e7-45f6-80bd-92801930cee4",
+        "name": "Port upper trailing rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          2.28,
+          1.98
+        ],
+        "rotation": [
+          -0.271,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          4.68,
+          0.16
+        ]
+      },
+      {
+        "id": "bbccbf9d-969c-4f83-82f0-a3cc94cd7a47",
+        "name": "Port lower leading rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          -2.28,
+          -1.98
+        ],
+        "rotation": [
+          -0.271,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          4.68,
+          0.16
+        ]
+      },
+      {
+        "id": "787e5825-a3f3-424e-a087-c18cd36473de",
+        "name": "Upper access hatch",
+        "type": "sphere",
+        "color": "#8d9ba0",
+        "texture": "brushed",
+        "position": [
+          0,
+          1.53,
+          0.08
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.75,
+          0.25,
+          0.75
+        ]
+      },
+      {
+        "id": "c352d7f4-35ca-426b-87e5-48d5ab06a503",
+        "name": "Lower sensor blister",
+        "type": "sphere",
+        "color": "#4f5d64",
+        "texture": "smooth",
+        "position": [
+          0,
+          -1.5,
+          -0.12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.55,
+          0.2,
+          0.55
+        ]
+      },
+      {
+        "id": "73034686-082a-45ed-aaa7-79aacf8fe606",
+        "name": "Viewport glass",
+        "type": "cylinder",
+        "color": "#12485b",
+        "texture": "smooth",
+        "position": [
+          0,
+          0,
+          -1.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.08,
+          0.07,
+          1.08
+        ]
+      },
+      {
+        "id": "03b47333-8b30-4097-963c-b6f36c4b98f3",
+        "name": "Viewport pressure rim",
+        "type": "cylinder",
+        "color": "#93a0a4",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          0,
+          0,
+          -1.625
+        ],
+        "rotation": [
+          1.571,
+          0,
+          0
+        ],
+        "scale": [
+          1.7,
+          0.13,
+          1.7
+        ]
+      },
+      {
+        "id": "29299b80-5e6d-4213-b4a7-13b51d93567a",
+        "name": "Port lower trailing rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          -2.28,
+          1.98
+        ],
+        "rotation": [
+          0.271,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          4.68,
+          0.16
+        ]
+      },
+      {
+        "id": "ec2d6050-e9d7-481d-82f7-a69860c8e6d7",
+        "name": "Port pylon core",
+        "type": "cylinder",
+        "color": "#4f5d64",
+        "texture": "brushed",
+        "position": [
+          -2.65,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          1.5707963267948966
+        ],
+        "scale": [
+          0.62,
+          1.55,
+          0.62
+        ]
+      },
+      {
+        "id": "183cd112-94eb-48dd-be36-d5ddb6a815a6",
+        "name": "Port ion engine nozzle",
+        "type": "cone",
+        "color": "#4f5d64",
+        "texture": "brushed",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          -0.48,
+          0,
+          1.62
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.46,
+          0.35,
+          0.46
+        ]
+      },
+      {
+        "id": "2ad85f02-2b89-41c5-a1c8-1d1a638c0434",
+        "name": "Port ion glow",
+        "type": "sphere",
+        "color": "#e45136",
+        "texture": "smooth",
+        "position": [
+          -0.48,
+          0,
+          1.88
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.28,
+          0.28,
+          0.14
+        ]
+      },
+      {
+        "id": "b278db1a-d72c-415f-9c4d-ed5c4457a91d",
+        "name": "Starboard pylon core",
+        "type": "cylinder",
+        "color": "#4f5d64",
+        "texture": "brushed",
+        "position": [
+          2.65,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          1.5707963267948966
+        ],
+        "scale": [
+          0.62,
+          1.55,
+          0.62
+        ]
+      },
+      {
+        "id": "1b75b11b-1576-438b-bc6d-ac99172ebd28",
+        "name": "Port wing hub",
+        "type": "cylinder",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          -3.55,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          1.571
+        ],
+        "scale": [
+          1.75,
+          0.4,
+          1.75
+        ]
+      },
+      {
+        "id": "45e246a6-113d-4216-ba14-c9a86215b255",
+        "name": "Port upper leading radial",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          1.24,
+          -0.98
+        ],
+        "rotation": [
+          -0.671,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          3.17,
+          0.13
+        ]
+      },
+      {
+        "id": "5e9d592c-ad1a-412f-9ca9-ed9e21efcca2",
+        "name": "Starboard wing hub",
+        "type": "cylinder",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          3.55,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          1.571
+        ],
+        "scale": [
+          1.75,
+          0.4,
+          1.75
+        ]
+      },
+      {
+        "id": "b19c2177-559e-4d90-aa64-b4b961e1fd01",
+        "name": "Starboard ion engine nozzle",
+        "type": "cone",
+        "color": "#4f5d64",
+        "texture": "brushed",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          0.48,
+          0,
+          1.62
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.46,
+          0.35,
+          0.46
+        ]
+      },
+      {
+        "id": "b252bfe4-bdf3-4d3b-9cc4-2d71f40b76a3",
+        "name": "Port upper trailing radial",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          1.24,
+          0.98
+        ],
+        "rotation": [
+          0.671,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          3.17,
+          0.13
+        ]
+      },
+      {
+        "id": "31b4c044-c3ab-4597-a8db-881de531aa60",
+        "name": "Port lower leading radial",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          -1.24,
+          -0.98
+        ],
+        "rotation": [
+          0.671,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          3.17,
+          0.13
+        ]
+      },
+      {
+        "id": "b03231e1-fc5a-4fd0-a1cf-26065e24b92a",
+        "name": "Port lower trailing radial",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          -1.24,
+          0.98
+        ],
+        "rotation": [
+          -0.671,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          3.17,
+          0.13
+        ]
+      },
+      {
+        "id": "433a91c9-8936-4f4d-8a3f-f7f7a579ca9a",
+        "name": "Starboard upper cap rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          4.56,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          0.17,
+          2.76
+        ]
+      },
+      {
+        "id": "10fb55f4-e7a1-47cf-ac85-8e552021751d",
+        "name": "Starboard lower cap rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          -4.56,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          0.17,
+          2.76
+        ]
+      },
+      {
+        "id": "52e7c878-7418-4242-a0ff-f8968c557721",
+        "name": "Starboard upper leading rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          2.28,
+          -1.98
+        ],
+        "rotation": [
+          0.271,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          4.68,
+          0.16
+        ]
+      },
+      {
+        "id": "ead7e870-48af-4909-9a76-e0d16769b3a1",
+        "name": "Starboard upper trailing rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          2.28,
+          1.98
+        ],
+        "rotation": [
+          -0.271,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          4.68,
+          0.16
+        ]
+      },
+      {
+        "id": "a168fd9a-3c2c-4b5f-b595-6b053f173d0b",
+        "name": "Starboard lower leading rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          -2.28,
+          -1.98
+        ],
+        "rotation": [
+          -0.271,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          4.68,
+          0.16
+        ]
+      },
+      {
+        "id": "b3a945e6-1df4-4cd1-80ea-4393438fdc90",
+        "name": "Starboard lower trailing rail",
+        "type": "box",
+        "color": "#75848b",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          -2.28,
+          1.98
+        ],
+        "rotation": [
+          0.271,
+          0,
+          0
+        ],
+        "scale": [
+          0.38,
+          4.68,
+          0.16
+        ]
+      },
+      {
+        "id": "a53aa430-a629-4eea-9a4b-bbcbc48ebeb7",
+        "name": "Starboard upper leading radial",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          1.24,
+          -0.98
+        ],
+        "rotation": [
+          -0.671,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          3.17,
+          0.13
+        ]
+      },
+      {
+        "id": "02d54dfb-a6eb-4a96-936b-599c90010a78",
+        "name": "Starboard upper trailing radial",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          1.24,
+          0.98
+        ],
+        "rotation": [
+          0.671,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          3.17,
+          0.13
+        ]
+      },
+      {
+        "id": "83ea4364-33cc-4a6f-a149-bb78e9b51d0d",
+        "name": "Starboard lower leading radial",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          -1.24,
+          -0.98
+        ],
+        "rotation": [
+          0.671,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          3.17,
+          0.13
+        ]
+      },
+      {
+        "id": "ae84582a-7f18-4629-a88e-8f9939706e2a",
+        "name": "Port engine collar",
+        "type": "cylinder",
+        "color": "#66747a",
+        "texture": "brushed",
+        "position": [
+          -0.48,
+          0,
+          1.42
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.68,
+          0.18,
+          0.68
+        ]
+      },
+      {
+        "id": "4dd847e5-68d5-4195-8f10-c47531c894d0",
+        "name": "Starboard engine collar",
+        "type": "cylinder",
+        "color": "#66747a",
+        "texture": "brushed",
+        "position": [
+          0.48,
+          0,
+          1.42
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.68,
+          0.18,
+          0.68
+        ]
+      },
+      {
+        "id": "5a1222a0-54bb-45e8-932e-96ba661295b9",
+        "name": "Hatch pressure collar",
+        "type": "cylinder",
+        "color": "#6d7b81",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          0,
+          1.48,
+          0.08
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.1,
+          0.18,
+          1.1
+        ]
+      },
+      {
+        "id": "ae2758e9-d96b-46fa-890c-f36bcc611019",
+        "name": "Ventral sensor collar",
+        "type": "cylinder",
+        "color": "#5d6a70",
+        "texture": "brushed",
+        "position": [
+          0,
+          -1.47,
+          -0.12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.72,
+          0.16,
+          0.72
+        ]
+      },
+      {
+        "id": "86d927bc-7ad0-4f03-8c93-b6d1ba2477fc",
+        "name": "Port laser barrel",
+        "type": "cylinder",
+        "color": "#6eea7b",
+        "texture": "brushed",
+        "position": [
+          -0.36,
+          -0.61,
+          -1.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.1,
+          0.38,
+          0.1
+        ]
+      },
+      {
+        "id": "b22a19d1-9f2a-4835-a29f-8c1d7f8a8361",
+        "name": "Starboard laser barrel",
+        "type": "cylinder",
+        "color": "#6eea7b",
+        "texture": "brushed",
+        "position": [
+          0.36,
+          -0.61,
+          -1.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.1,
+          0.38,
+          0.1
+        ]
+      },
+      {
+        "id": "d968b83f-93d1-4019-9a15-16604d44a620",
+        "name": "Rear reactor ring",
+        "type": "cylinder",
+        "color": "#65737a",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          0,
+          0,
+          1.5
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.7,
+          0.12,
+          1.7
+        ]
+      },
+      {
+        "id": "7e08e27d-6850-4793-8060-e69e215b1716",
+        "name": "Starboard lower trailing radial",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          -1.24,
+          0.98
+        ],
+        "rotation": [
+          -0.671,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          3.17,
+          0.13
+        ]
+      },
+      {
+        "id": "14a0cf61-116e-4d17-a3f4-c9f1b253d2aa",
+        "name": "Port pylon reinforcement",
+        "type": "box",
+        "color": "#5f6e75",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -2.65,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.45,
+          0.18,
+          0.2
+        ]
+      },
+      {
+        "id": "6321d15f-d384-432f-9014-395cc240127e",
+        "name": "Starboard ion glow",
+        "type": "sphere",
+        "color": "#e45136",
+        "texture": "smooth",
+        "position": [
+          0.48,
+          0,
+          1.88
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.28,
+          0.28,
+          0.14
+        ]
+      },
+      {
+        "id": "406f0560-5fb7-4955-9c69-0699eebd505b",
+        "name": "Starboard pylon reinforcement",
+        "type": "box",
+        "color": "#5f6e75",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          2.65,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.45,
+          0.18,
+          0.2
+        ]
+      },
+      {
+        "id": "8fceaacf-e796-4f76-8cdf-c6bfe795d4af",
+        "name": "Port laser mount",
+        "type": "box",
+        "color": "#4f5d64",
+        "texture": "plated",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -0.36,
+          -0.61,
+          -1.39
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.2,
+          0.34
+        ]
+      },
+      {
+        "id": "56b69b71-6d1c-4a2e-abb4-073dd04b1bc8",
+        "name": "Starboard laser mount",
+        "type": "box",
+        "color": "#4f5d64",
+        "texture": "plated",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0.36,
+          -0.61,
+          -1.39
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.25,
+          0.2,
+          0.34
+        ]
+      },
+      {
+        "id": "be01c1a9-320c-4781-b598-f48967a7d251",
+        "name": "Port lower solar array",
+        "type": "trapezoid",
+        "color": "#173345",
+        "texture": "composite",
+        "position": [
+          -3.55,
+          -2.25,
+          0
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          -1.5707963267948966
+        ],
+        "scale": [
+          5.2,
+          0.28,
+          4.5
+        ]
+      },
+      {
+        "id": "ac46ebd7-11e1-4db8-b8e4-57b4d78f85d9",
+        "name": "Starboard lower solar array",
+        "type": "trapezoid",
+        "color": "#173345",
+        "texture": "composite",
+        "position": [
+          3.55,
+          -2.25,
+          0
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          -1.5707963267948966
+        ],
+        "scale": [
+          5.2,
+          0.28,
+          4.5
+        ]
+      },
+      {
+        "id": "d4e45dab-3997-49ef-88e4-d0a7982ebbfc",
+        "name": "Port vertical solar brace",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.42,
+          9,
+          0.13
+        ]
+      },
+      {
+        "id": "6189722b-2edc-4d3b-b82f-5b30408d882a",
+        "name": "Starboard upper solar array",
+        "type": "trapezoid",
+        "color": "#173345",
+        "texture": "composite",
+        "position": [
+          3.55,
+          2.25,
+          0
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          -1.5707963267948966
+        ],
+        "scale": [
+          5.2,
+          0.28,
+          4.5
+        ]
+      },
+      {
+        "id": "7e53ec75-261d-45ae-8af3-c2683046e66b",
+        "name": "Port upper solar array",
+        "type": "trapezoid",
+        "color": "#173345",
+        "texture": "composite",
+        "position": [
+          -3.55,
+          2.25,
+          0
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          -1.5707963267948966
+        ],
+        "scale": [
+          5.2,
+          0.28,
+          4.5
+        ]
+      },
+      {
+        "id": "c5c96930-0756-42be-9e1a-973d13b50c9c",
+        "name": "Starboard vertical solar brace",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.42,
+          9.2,
+          0.13
+        ]
+      },
+      {
+        "id": "5065b766-6047-4994-abb2-5a127b575d0f",
+        "name": "Port horizontal solar brace",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -3.55,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.42,
+          0.13,
+          5
+        ]
+      },
+      {
+        "id": "abcc4b51-613b-4e3a-a839-0f1f9ce3cfa9",
+        "name": "Starboard horizontal solar brace",
+        "type": "box",
+        "color": "#7f8e93",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          3.55,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.42,
+          0.13,
+          5
+        ]
+      },
+      {
+        "id": "3fa68b7d-2d01-46d7-a08c-f552e0d29ade",
+        "name": "Port wing pylon fairing",
+        "type": "tapered-block",
+        "color": "#738087",
+        "texture": "plated",
+        "position": [
+          -3.2,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "scale": [
+          1.08,
+          1.08,
+          0.7
+        ]
+      },
+      {
+        "id": "de4a4997-3b11-4dff-9238-e77962baa968",
+        "name": "Starboard upper pylon brace",
+        "type": "tapered-block",
+        "color": "#56666d",
+        "texture": "brushed",
+        "position": [
+          2.65,
+          0.42,
+          0
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.3,
+          1.45
+        ]
+      },
+      {
+        "id": "7ea69872-9bdf-40cf-9cbc-7870a779dc91",
+        "name": "Starboard wing pylon fairing",
+        "type": "tapered-block",
+        "color": "#738087",
+        "texture": "plated",
+        "position": [
+          3.2,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "scale": [
+          1.08,
+          1.08,
+          0.7
+        ]
+      },
+      {
+        "id": "a1697dd0-b851-4b50-8bec-b430303282ae",
+        "name": "Port lower pylon brace",
+        "type": "tapered-block",
+        "color": "#56666d",
+        "texture": "brushed",
+        "position": [
+          -2.65,
+          -0.42,
+          0
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.3,
+          1.45
+        ]
+      },
+      {
+        "id": "d8938199-785c-429b-a93c-17d4ac1800ca",
+        "name": "Port cockpit pylon fairing",
+        "type": "tapered-block",
+        "color": "#738087",
+        "texture": "plated",
+        "position": [
+          -1.9,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          0.7
+        ]
+      },
+      {
+        "id": "329036cb-7eab-4adc-bc7c-66396f0380a9",
+        "name": "Starboard lower pylon brace",
+        "type": "tapered-block",
+        "color": "#56666d",
+        "texture": "brushed",
+        "position": [
+          2.65,
+          -0.42,
+          0
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.3,
+          1.45
+        ]
+      },
+      {
+        "id": "54d8e2f6-329a-437b-a3f1-d1b03e4d641d",
+        "name": "Port upper pylon brace",
+        "type": "tapered-block",
+        "color": "#56666d",
+        "texture": "brushed",
+        "position": [
+          -2.65,
+          0.42,
+          0
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.3,
+          1.45
+        ]
+      },
+      {
+        "id": "e348a96d-a3f3-4ec3-9160-91304f54d44e",
+        "name": "Starboard cockpit pylon fairing",
+        "type": "tapered-block",
+        "color": "#738087",
+        "texture": "plated",
+        "position": [
+          1.9,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          -1.5707963267948966,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          0.7
+        ]
+      },
+      {
+        "id": "d495c515-67d6-4592-aff1-d1d8371bb9c5",
+        "name": "Viewport spoke 7",
+        "type": "box",
+        "color": "#c1cccd",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0,
+          -0.34,
+          -1.66
+        ],
+        "rotation": [
+          0,
+          0,
+          -3.141592653589793
+        ],
+        "scale": [
+          0.075,
+          0.68,
+          0.03
+        ]
+      },
+      {
+        "id": "c7cd6e49-64f1-47fa-bf6c-91b6e39b8ab0",
+        "name": "Viewport spoke 3",
+        "type": "box",
+        "color": "#c1cccd",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0,
+          0.34,
+          -1.66
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.075,
+          0.68,
+          0.03
+        ]
+      },
+      {
+        "id": "8df34567-f285-4544-af85-771605e4da3d",
+        "name": "Viewport spoke 5",
+        "type": "box",
+        "color": "#c1cccd",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -0.34,
+          0,
+          -1.66
+        ],
+        "rotation": [
+          0,
+          0,
+          1.5707963267948966
+        ],
+        "scale": [
+          0.075,
+          0.68,
+          0.03
+        ]
+      },
+      {
+        "id": "2f482bb9-80ec-4beb-b2a3-1b1d6d4413f9",
+        "name": "Viewport spoke 6",
+        "type": "box",
+        "color": "#c1cccd",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -0.240416,
+          -0.240416,
+          -1.66
+        ],
+        "rotation": [
+          0,
+          0,
+          -3.9269908169872414
+        ],
+        "scale": [
+          0.075,
+          0.68,
+          0.03
+        ]
+      },
+      {
+        "id": "95317a85-c9d3-43c1-991c-8e4e69d7eeda",
+        "name": "Viewport spoke 4",
+        "type": "box",
+        "color": "#c1cccd",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -0.240416,
+          0.240416,
+          -1.66
+        ],
+        "rotation": [
+          0,
+          0,
+          0.7853981633974483
+        ],
+        "scale": [
+          0.075,
+          0.68,
+          0.03
+        ]
+      },
+      {
+        "id": "6c0065e7-fea0-4d5a-a614-b0a27675f3a1",
+        "name": "Viewport spoke 2",
+        "type": "box",
+        "color": "#c1cccd",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0.240416,
+          0.240416,
+          -1.66
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.7853981633974483
+        ],
+        "scale": [
+          0.075,
+          0.68,
+          0.03
+        ]
+      },
+      {
+        "id": "df3382c7-2043-4fcd-a8b7-c297bc2a43ff",
+        "name": "Viewport spoke 1",
+        "type": "box",
+        "color": "#c1cccd",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0.34,
+          0,
+          -1.66
+        ],
+        "rotation": [
+          0,
+          0,
+          -1.5707963267948966
+        ],
+        "scale": [
+          0.075,
+          0.68,
+          0.03
+        ]
+      },
+      {
+        "id": "88b1d227-0bbf-4bcb-adcc-a3744086147e",
+        "name": "Viewport spoke 8",
+        "type": "box",
+        "color": "#c1cccd",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0.240416,
+          -0.240416,
+          -1.66
+        ],
+        "rotation": [
+          0,
+          0,
+          -2.356194490192345
+        ],
+        "scale": [
+          0.075,
+          0.68,
+          0.03
+        ]
+      }
+    ],
+    "camera": {
+      "position": [
+        7.905,
+        5.111,
+        -18.037
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ]
+    },
+    "backgroundColor": "#020907"
+  }
+}

@@ -1,0 +1,2165 @@
+{
+  "format": "shipwright-design",
+  "formatVersion": 1,
+  "name": "T-65 X-Wing",
+  "data": {
+    "version": 1,
+    "parts": [
+      {
+        "id": "xw-c01",
+        "name": "Red nose cap",
+        "type": "cone",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          0,
+          0,
+          -7.55
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.58,
+          0.75,
+          0.58
+        ]
+      },
+      {
+        "id": "xw-c02",
+        "name": "Forward fuselage",
+        "type": "tapered-block",
+        "color": "#d8d7ca",
+        "texture": "plated",
+        "position": [
+          0,
+          0,
+          -5.95
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.62,
+          0.78,
+          2.4
+        ]
+      },
+      {
+        "id": "xw-c03",
+        "name": "Mid nose fuselage",
+        "type": "tapered-block",
+        "color": "#ece9dc",
+        "texture": "plated",
+        "position": [
+          0,
+          0,
+          -4.35
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.05,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "xw-c04",
+        "name": "Nose collar",
+        "type": "box",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0,
+          0,
+          -3.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.2,
+          1.1,
+          0.55
+        ]
+      },
+      {
+        "id": "xw-c06",
+        "name": "Cockpit fuselage",
+        "type": "box",
+        "color": "#ece9dc",
+        "texture": "plated",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0,
+          0,
+          -0.55
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.6,
+          1.45,
+          2.4
+        ]
+      },
+      {
+        "id": "xw-c07",
+        "name": "Aft tapered fuselage",
+        "type": "tapered-block",
+        "color": "#d8d7ca",
+        "texture": "plated",
+        "position": [
+          0,
+          -0.02,
+          1.65
+        ],
+        "rotation": [
+          0,
+          3.141592653589793,
+          0
+        ],
+        "scale": [
+          2.4,
+          1.3,
+          2.4
+        ]
+      },
+      {
+        "id": "xw-c08",
+        "name": "Tail equipment block",
+        "type": "box",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0,
+          0,
+          2.75
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.55,
+          0.9,
+          0.8
+        ]
+      },
+      {
+        "id": "xw-c11",
+        "name": "Port nose cheek armor",
+        "type": "trapezoid",
+        "color": "#7a8280",
+        "texture": "plated",
+        "position": [
+          -0.77,
+          -0.04,
+          -4.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.22,
+          0.72,
+          1.75
+        ]
+      },
+      {
+        "id": "xw-c12",
+        "name": "Starboard nose cheek armor",
+        "type": "trapezoid",
+        "color": "#7a8280",
+        "texture": "plated",
+        "position": [
+          0.77,
+          -0.04,
+          -4.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.22,
+          0.72,
+          1.75
+        ]
+      },
+      {
+        "id": "xw-c13",
+        "name": "Port red fuselage marking",
+        "type": "box",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          -1.08,
+          0.03,
+          -2.65
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07,
+          0.18,
+          1.25
+        ]
+      },
+      {
+        "id": "xw-c14",
+        "name": "Starboard red fuselage marking",
+        "type": "box",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          1.08,
+          0.03,
+          -2.65
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07,
+          0.18,
+          1.25
+        ]
+      },
+      {
+        "id": "xw-c15",
+        "name": "Port fuselage service vent",
+        "type": "box",
+        "color": "#182426",
+        "texture": "composite",
+        "position": [
+          -1.31,
+          -0.05,
+          -0.68
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07,
+          0.38,
+          0.92
+        ]
+      },
+      {
+        "id": "xw-c16",
+        "name": "Starboard fuselage service vent",
+        "type": "box",
+        "color": "#182426",
+        "texture": "composite",
+        "position": [
+          1.31,
+          -0.05,
+          -0.68
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07,
+          0.38,
+          0.92
+        ]
+      },
+      {
+        "id": "xw-c17",
+        "name": "Port proton torpedo tube",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          -0.46,
+          -0.43,
+          -4.85
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.2,
+          0.14,
+          0.2
+        ]
+      },
+      {
+        "id": "xw-c18",
+        "name": "Starboard proton torpedo tube",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          0.46,
+          -0.43,
+          -4.85
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.2,
+          0.14,
+          0.2
+        ]
+      },
+      {
+        "id": "xw-c19",
+        "name": "Cockpit canopy glass",
+        "type": "tapered-block",
+        "color": "#113442",
+        "texture": "smooth",
+        "position": [
+          0,
+          0.7,
+          -1.78
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.25,
+          0.58,
+          1.5
+        ]
+      },
+      {
+        "id": "xw-c21",
+        "name": "Forward canopy bow",
+        "type": "box",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          0,
+          0.65,
+          -2.58
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.6,
+          0.2,
+          0.08
+        ]
+      },
+      {
+        "id": "xw-c22",
+        "name": "Rear canopy bow",
+        "type": "box",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          0,
+          0.75,
+          -0.25
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.7,
+          0.1,
+          0.08
+        ]
+      },
+      {
+        "id": "xw-c26",
+        "name": "Astromech socket",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          0,
+          0.72,
+          0.36
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.8,
+          0.2,
+          0.8
+        ]
+      },
+      {
+        "id": "xw-c27",
+        "name": "R2 unit body",
+        "type": "cylinder",
+        "color": "#b8c0bd",
+        "texture": "brushed",
+        "position": [
+          0,
+          0.86,
+          0.36
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.64,
+          0.58,
+          0.64
+        ]
+      },
+      {
+        "id": "xw-c28",
+        "name": "R2 unit dome",
+        "type": "sphere",
+        "color": "#b8c0bd",
+        "texture": "brushed",
+        "position": [
+          0,
+          1.18,
+          0.36
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.54,
+          0.34,
+          0.54
+        ]
+      },
+      {
+        "id": "xw-c29",
+        "name": "R2 blue body band",
+        "type": "cylinder",
+        "color": "#315e93",
+        "texture": "smooth",
+        "position": [
+          0,
+          0.99,
+          0.36
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.69,
+          0.1,
+          0.69
+        ]
+      },
+      {
+        "id": "xw-c30",
+        "name": "R2 optical sensor",
+        "type": "box",
+        "color": "#182426",
+        "texture": "smooth",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          0,
+          1.23,
+          0.02
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.12,
+          0.1,
+          0.07
+        ]
+      },
+      {
+        "id": "xw-w-pl-01",
+        "name": "Port lower S-foil",
+        "type": "box",
+        "color": "#d8d7ca",
+        "texture": "composite",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -2.25,
+          -0.65,
+          1.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          2.7,
+          0.18,
+          3.4
+        ]
+      },
+      {
+        "id": "xw-w-pl-02",
+        "name": "Port lower wing root",
+        "type": "box",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -1.25,
+          -0.32,
+          1.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          0.9,
+          0.25,
+          2.6
+        ]
+      },
+      {
+        "id": "xw-w-pl-03",
+        "name": "Port lower red squadron panel",
+        "type": "box",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          -4.053,
+          -1.381,
+          0.55
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          1.05,
+          0.05,
+          0.5
+        ]
+      },
+      {
+        "id": "xw-w-pl-04",
+        "name": "Port lower trailing service panel",
+        "type": "box",
+        "color": "#182426",
+        "texture": "composite",
+        "position": [
+          -2.453,
+          -0.827,
+          2.15
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          0.95,
+          0.05,
+          0.45
+        ]
+      },
+      {
+        "id": "xw-d-pl-02",
+        "name": "Port lower S-foil pivot",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "position": [
+          -2.18,
+          -0.627,
+          0.58
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          0.48,
+          0.12,
+          0.48
+        ]
+      },
+      {
+        "id": "xw-e-pl-01",
+        "name": "Port lower engine body",
+        "type": "cylinder",
+        "color": "#d8d7ca",
+        "texture": "brushed",
+        "position": [
+          -1.78,
+          -0.6,
+          1
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.1,
+          3,
+          1.1
+        ]
+      },
+      {
+        "id": "xw-e-pl-02",
+        "name": "Port lower intake ring",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          -1.78,
+          -0.6,
+          -0.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.32,
+          0.26,
+          1.32
+        ]
+      },
+      {
+        "id": "xw-e-pl-03",
+        "name": "Port lower intake core",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "smooth",
+        "position": [
+          -1.78,
+          -0.6,
+          -0.71
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.76,
+          0.15,
+          0.76
+        ]
+      },
+      {
+        "id": "xw-e-pl-04",
+        "name": "Port lower red engine collar",
+        "type": "cylinder",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          -1.78,
+          -0.6,
+          -0.31
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.17,
+          0.24,
+          1.17
+        ]
+      },
+      {
+        "id": "xw-e-pl-05",
+        "name": "Port lower aft engine collar",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          -1.78,
+          -0.6,
+          2.25
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.18,
+          0.28,
+          1.18
+        ]
+      },
+      {
+        "id": "xw-e-pl-06",
+        "name": "Port lower exhaust nozzle",
+        "type": "cone",
+        "color": "#182426",
+        "texture": "brushed",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          -1.78,
+          -0.6,
+          2.95
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.02,
+          0.7,
+          1.02
+        ]
+      },
+      {
+        "id": "xw-l-pl-01",
+        "name": "Port lower cannon tip mount",
+        "type": "cylinder",
+        "color": "#d8d7ca",
+        "texture": "brushed",
+        "position": [
+          -4.84,
+          -1.55,
+          1.28
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.58,
+          1.25,
+          0.58
+        ]
+      },
+      {
+        "id": "xw-l-pl-02",
+        "name": "Port lower cannon collar",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "position": [
+          -4.84,
+          -1.55,
+          0.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.36,
+          0.4
+        ]
+      },
+      {
+        "id": "xw-l-pl-03",
+        "name": "Port lower laser barrel",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          -4.84,
+          -1.55,
+          -1.46
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.2,
+          4.1,
+          0.2
+        ]
+      },
+      {
+        "id": "xw-l-pl-04",
+        "name": "Port lower red laser emitter",
+        "type": "cone",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          -4.84,
+          -1.55,
+          -3.7
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.27,
+          0.34,
+          0.27
+        ]
+      },
+      {
+        "id": "xw-w-pu-01",
+        "name": "Port upper S-foil",
+        "type": "box",
+        "color": "#d8d7ca",
+        "texture": "composite",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -2.25,
+          0.65,
+          1.1
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          2.7,
+          0.18,
+          3.4
+        ]
+      },
+      {
+        "id": "xw-w-pu-02",
+        "name": "Port upper wing root",
+        "type": "box",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -1.25,
+          0.32,
+          1.1
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          0.9,
+          0.25,
+          2.6
+        ]
+      },
+      {
+        "id": "xw-w-pu-03",
+        "name": "Port upper red squadron panel",
+        "type": "box",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          -4.053,
+          1.381,
+          0.55
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          1.05,
+          0.05,
+          0.5
+        ]
+      },
+      {
+        "id": "xw-w-pu-04",
+        "name": "Port upper trailing service panel",
+        "type": "box",
+        "color": "#182426",
+        "texture": "composite",
+        "position": [
+          -2.453,
+          0.827,
+          2.15
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          0.95,
+          0.05,
+          0.45
+        ]
+      },
+      {
+        "id": "xw-d-pu-02",
+        "name": "Port upper S-foil pivot",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "position": [
+          -2.18,
+          0.627,
+          0.58
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          0.48,
+          0.12,
+          0.48
+        ]
+      },
+      {
+        "id": "xw-e-pu-01",
+        "name": "Port upper engine body",
+        "type": "cylinder",
+        "color": "#d8d7ca",
+        "texture": "brushed",
+        "position": [
+          -1.78,
+          0.6,
+          1
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.1,
+          3,
+          1.1
+        ]
+      },
+      {
+        "id": "xw-e-pu-02",
+        "name": "Port upper intake ring",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          -1.78,
+          0.6,
+          -0.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.32,
+          0.26,
+          1.32
+        ]
+      },
+      {
+        "id": "xw-e-pu-03",
+        "name": "Port upper intake core",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "smooth",
+        "position": [
+          -1.78,
+          0.6,
+          -0.71
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.76,
+          0.15,
+          0.76
+        ]
+      },
+      {
+        "id": "xw-e-pu-04",
+        "name": "Port upper red engine collar",
+        "type": "cylinder",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          -1.78,
+          0.6,
+          -0.31
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.17,
+          0.24,
+          1.17
+        ]
+      },
+      {
+        "id": "xw-e-pu-05",
+        "name": "Port upper aft engine collar",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          -1.78,
+          0.6,
+          2.25
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.18,
+          0.28,
+          1.18
+        ]
+      },
+      {
+        "id": "xw-e-pu-06",
+        "name": "Port upper exhaust nozzle",
+        "type": "cone",
+        "color": "#182426",
+        "texture": "brushed",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          -1.78,
+          0.6,
+          2.95
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.02,
+          0.7,
+          1.02
+        ]
+      },
+      {
+        "id": "xw-l-pu-01",
+        "name": "Port upper cannon tip mount",
+        "type": "cylinder",
+        "color": "#d8d7ca",
+        "texture": "brushed",
+        "position": [
+          -4.84,
+          1.55,
+          1.28
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.58,
+          1.25,
+          0.58
+        ]
+      },
+      {
+        "id": "xw-l-pu-02",
+        "name": "Port upper cannon collar",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "position": [
+          -4.84,
+          1.55,
+          0.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.36,
+          0.4
+        ]
+      },
+      {
+        "id": "xw-l-pu-03",
+        "name": "Port upper laser barrel",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          -4.84,
+          1.55,
+          -1.46
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.2,
+          4.1,
+          0.2
+        ]
+      },
+      {
+        "id": "xw-l-pu-04",
+        "name": "Port upper red laser emitter",
+        "type": "cone",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          -4.84,
+          1.55,
+          -3.7
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.27,
+          0.34,
+          0.27
+        ]
+      },
+      {
+        "id": "xw-w-sl-01",
+        "name": "Starboard lower S-foil",
+        "type": "box",
+        "color": "#d8d7ca",
+        "texture": "composite",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          2.25,
+          -0.65,
+          1.1
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          2.7,
+          0.18,
+          3.4
+        ]
+      },
+      {
+        "id": "xw-w-sl-02",
+        "name": "Starboard lower wing root",
+        "type": "box",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          1.25,
+          -0.32,
+          1.1
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          0.9,
+          0.25,
+          2.6
+        ]
+      },
+      {
+        "id": "xw-w-sl-03",
+        "name": "Starboard lower red squadron panel",
+        "type": "box",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          4.053,
+          -1.381,
+          0.55
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          1.05,
+          0.05,
+          0.5
+        ]
+      },
+      {
+        "id": "xw-w-sl-04",
+        "name": "Starboard lower trailing service panel",
+        "type": "box",
+        "color": "#182426",
+        "texture": "composite",
+        "position": [
+          2.453,
+          -0.827,
+          2.15
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          0.95,
+          0.05,
+          0.45
+        ]
+      },
+      {
+        "id": "xw-d-sl-02",
+        "name": "Starboard lower S-foil pivot",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "position": [
+          2.18,
+          -0.627,
+          0.58
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          0.48,
+          0.12,
+          0.48
+        ]
+      },
+      {
+        "id": "xw-e-sl-01",
+        "name": "Starboard lower engine body",
+        "type": "cylinder",
+        "color": "#d8d7ca",
+        "texture": "brushed",
+        "position": [
+          1.78,
+          -0.6,
+          1
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.1,
+          3,
+          1.1
+        ]
+      },
+      {
+        "id": "xw-e-sl-02",
+        "name": "Starboard lower intake ring",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          1.78,
+          -0.6,
+          -0.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.32,
+          0.26,
+          1.32
+        ]
+      },
+      {
+        "id": "xw-e-sl-03",
+        "name": "Starboard lower intake core",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "smooth",
+        "position": [
+          1.78,
+          -0.6,
+          -0.71
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.76,
+          0.15,
+          0.76
+        ]
+      },
+      {
+        "id": "xw-e-sl-04",
+        "name": "Starboard lower red engine collar",
+        "type": "cylinder",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          1.78,
+          -0.6,
+          -0.31
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.17,
+          0.24,
+          1.17
+        ]
+      },
+      {
+        "id": "xw-e-sl-05",
+        "name": "Starboard lower aft engine collar",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          1.78,
+          -0.6,
+          2.25
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.18,
+          0.28,
+          1.18
+        ]
+      },
+      {
+        "id": "xw-e-sl-06",
+        "name": "Starboard lower exhaust nozzle",
+        "type": "cone",
+        "color": "#182426",
+        "texture": "brushed",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          1.78,
+          -0.6,
+          2.95
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.02,
+          0.7,
+          1.02
+        ]
+      },
+      {
+        "id": "xw-l-sl-01",
+        "name": "Starboard lower cannon tip mount",
+        "type": "cylinder",
+        "color": "#d8d7ca",
+        "texture": "brushed",
+        "position": [
+          4.84,
+          -1.55,
+          1.28
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.58,
+          1.25,
+          0.58
+        ]
+      },
+      {
+        "id": "xw-l-sl-02",
+        "name": "Starboard lower cannon collar",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "position": [
+          4.84,
+          -1.55,
+          0.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.36,
+          0.4
+        ]
+      },
+      {
+        "id": "xw-l-sl-03",
+        "name": "Starboard lower laser barrel",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          4.84,
+          -1.55,
+          -1.46
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.2,
+          4.1,
+          0.2
+        ]
+      },
+      {
+        "id": "xw-l-sl-04",
+        "name": "Starboard lower red laser emitter",
+        "type": "cone",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          4.84,
+          -1.55,
+          -3.7
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.27,
+          0.34,
+          0.27
+        ]
+      },
+      {
+        "id": "xw-w-su-01",
+        "name": "Starboard upper S-foil",
+        "type": "box",
+        "color": "#d8d7ca",
+        "texture": "composite",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          2.25,
+          0.65,
+          1.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          2.7,
+          0.18,
+          3.4
+        ]
+      },
+      {
+        "id": "xw-w-su-02",
+        "name": "Starboard upper wing root",
+        "type": "box",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          1.25,
+          0.32,
+          1.1
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          0.9,
+          0.25,
+          2.6
+        ]
+      },
+      {
+        "id": "xw-w-su-03",
+        "name": "Starboard upper red squadron panel",
+        "type": "box",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          4.053,
+          1.381,
+          0.55
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          1.05,
+          0.05,
+          0.5
+        ]
+      },
+      {
+        "id": "xw-w-su-04",
+        "name": "Starboard upper trailing service panel",
+        "type": "box",
+        "color": "#182426",
+        "texture": "composite",
+        "position": [
+          2.453,
+          0.827,
+          2.15
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          0.95,
+          0.05,
+          0.45
+        ]
+      },
+      {
+        "id": "xw-d-su-02",
+        "name": "Starboard upper S-foil pivot",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "position": [
+          2.18,
+          0.627,
+          0.58
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          0.48,
+          0.12,
+          0.48
+        ]
+      },
+      {
+        "id": "xw-e-su-01",
+        "name": "Starboard upper engine body",
+        "type": "cylinder",
+        "color": "#d8d7ca",
+        "texture": "brushed",
+        "position": [
+          1.78,
+          0.6,
+          1
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.1,
+          3,
+          1.1
+        ]
+      },
+      {
+        "id": "xw-e-su-02",
+        "name": "Starboard upper intake ring",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "features": {
+          "hollow": true
+        },
+        "position": [
+          1.78,
+          0.6,
+          -0.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.32,
+          0.26,
+          1.32
+        ]
+      },
+      {
+        "id": "xw-e-su-03",
+        "name": "Starboard upper intake core",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "smooth",
+        "position": [
+          1.78,
+          0.6,
+          -0.71
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.76,
+          0.15,
+          0.76
+        ]
+      },
+      {
+        "id": "xw-e-su-04",
+        "name": "Starboard upper red engine collar",
+        "type": "cylinder",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "position": [
+          1.78,
+          0.6,
+          -0.31
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.17,
+          0.24,
+          1.17
+        ]
+      },
+      {
+        "id": "xw-e-su-05",
+        "name": "Starboard upper aft engine collar",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          1.78,
+          0.6,
+          2.25
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.18,
+          0.28,
+          1.18
+        ]
+      },
+      {
+        "id": "xw-e-su-06",
+        "name": "Starboard upper exhaust nozzle",
+        "type": "cone",
+        "color": "#182426",
+        "texture": "brushed",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          1.78,
+          0.6,
+          2.95
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          1.02,
+          0.7,
+          1.02
+        ]
+      },
+      {
+        "id": "xw-l-su-01",
+        "name": "Starboard upper cannon tip mount",
+        "type": "cylinder",
+        "color": "#d8d7ca",
+        "texture": "brushed",
+        "position": [
+          4.84,
+          1.55,
+          1.28
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.58,
+          1.25,
+          0.58
+        ]
+      },
+      {
+        "id": "xw-l-su-02",
+        "name": "Starboard upper cannon collar",
+        "type": "cylinder",
+        "color": "#182426",
+        "texture": "brushed",
+        "position": [
+          4.84,
+          1.55,
+          0.58
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.4,
+          0.36,
+          0.4
+        ]
+      },
+      {
+        "id": "xw-l-su-03",
+        "name": "Starboard upper laser barrel",
+        "type": "cylinder",
+        "color": "#7a8280",
+        "texture": "brushed",
+        "position": [
+          4.84,
+          1.55,
+          -1.46
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.2,
+          4.1,
+          0.2
+        ]
+      },
+      {
+        "id": "xw-l-su-04",
+        "name": "Starboard upper red laser emitter",
+        "type": "cone",
+        "color": "#a52a35",
+        "texture": "smooth",
+        "features": {
+          "truncated": true
+        },
+        "position": [
+          4.84,
+          1.55,
+          -3.7
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.27,
+          0.34,
+          0.27
+        ]
+      },
+      {
+        "id": "xw-e-pl-07",
+        "name": "Port lower engine glow",
+        "type": "cylinder",
+        "color": "#ff8a32",
+        "texture": "smooth",
+        "position": [
+          -1.78,
+          -0.6,
+          3.47
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.62,
+          0.08,
+          0.62
+        ]
+      },
+      {
+        "id": "xw-e-pu-07",
+        "name": "Port upper engine glow",
+        "type": "cylinder",
+        "color": "#ff8a32",
+        "texture": "smooth",
+        "position": [
+          -1.78,
+          0.6,
+          3.47
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.62,
+          0.08,
+          0.62
+        ]
+      },
+      {
+        "id": "xw-e-sl-07",
+        "name": "Starboard lower engine glow",
+        "type": "cylinder",
+        "color": "#ff8a32",
+        "texture": "smooth",
+        "position": [
+          1.78,
+          -0.6,
+          3.47
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.62,
+          0.08,
+          0.62
+        ]
+      },
+      {
+        "id": "xw-e-su-07",
+        "name": "Starboard upper engine glow",
+        "type": "cylinder",
+        "color": "#ff8a32",
+        "texture": "smooth",
+        "position": [
+          1.78,
+          0.6,
+          3.47
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ],
+        "scale": [
+          0.62,
+          0.08,
+          0.62
+        ]
+      },
+      {
+        "id": "xw-w-pl-05",
+        "name": "Port lower outer S-foil",
+        "type": "box",
+        "color": "#ece9dc",
+        "texture": "plated",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -4.18,
+          -1.32,
+          1.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          1.4,
+          0.18,
+          2.4
+        ]
+      },
+      {
+        "id": "xw-w-pu-05",
+        "name": "Port upper outer S-foil",
+        "type": "box",
+        "color": "#ece9dc",
+        "texture": "plated",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          -4.18,
+          1.32,
+          1.3
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          1.4,
+          0.18,
+          2.4
+        ]
+      },
+      {
+        "id": "xw-w-sl-05",
+        "name": "Starboard lower outer S-foil",
+        "type": "box",
+        "color": "#ece9dc",
+        "texture": "plated",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          4.18,
+          -1.32,
+          1.3
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.34
+        ],
+        "scale": [
+          1.4,
+          0.18,
+          2.4
+        ]
+      },
+      {
+        "id": "xw-w-su-05",
+        "name": "Starboard upper outer S-foil",
+        "type": "box",
+        "color": "#ece9dc",
+        "texture": "plated",
+        "features": {
+          "chamfered": true
+        },
+        "position": [
+          4.18,
+          1.32,
+          1.3
+        ],
+        "rotation": [
+          0,
+          0,
+          0.34
+        ],
+        "scale": [
+          1.4,
+          0.18,
+          2.4
+        ]
+      },
+      {
+        "id": "2e334ec9-8dc9-475e-8d28-211802586ec3",
+        "name": "Armor block 98",
+        "type": "box",
+        "color": "#d8d7ca",
+        "texture": "smooth",
+        "position": [
+          0,
+          0,
+          -2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          1.1,
+          2
+        ]
+      },
+      {
+        "id": "9481d53a-894e-4958-9ce2-8566b6f82e69",
+        "name": "Trapezoidal prism 97",
+        "type": "trapezoid",
+        "color": "#d8d7ca",
+        "texture": "smooth",
+        "position": [
+          0,
+          0.7,
+          -0.75
+        ],
+        "rotation": [
+          -3.142,
+          0,
+          -3.142
+        ],
+        "scale": [
+          1.4,
+          0.7,
+          1
+        ]
+      }
+    ],
+    "camera": {
+      "position": [
+        -17.345,
+        11.318,
+        -17.707
+      ],
+      "target": [
+        0,
+        0.1,
+        -0.8
+      ]
+    },
+    "backgroundColor": "#020708"
+  }
+}
