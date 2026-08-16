@@ -13,8 +13,10 @@ import {
   Copy,
   DraftingCompass,
   FileDown,
+  FilePlus2,
   FileUp,
   Palette,
+  Save,
   Trash2,
   Undo2,
 } from "lucide-react";
@@ -25,6 +27,7 @@ import {
   writeCameraPreference,
 } from "./cameraPreferences";
 import { IconButton } from "./components/IconButton";
+import { ShapeIcon } from "./components/ShapeIcon";
 import {
   MAX_SHIPWRIGHT_FILE_BYTES,
   createShipwrightDesignFile,
@@ -90,6 +93,11 @@ interface EditorSnapshot {
   selectedPartId: string | null;
 }
 
+interface DesignDeleteConfirmation {
+  id: string;
+  name: string;
+}
+
 export default function App() {
   const [parts, setParts] = useState<ShipPart[]>(createStarterParts);
   const [selectedPartId, setSelectedPartId] = useState<string | null>(null);
@@ -107,6 +115,8 @@ export default function App() {
   const [user, setUser] = useState<SessionUser | null | undefined>(undefined);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("dirty");
   const [isDeletingDesign, setIsDeletingDesign] = useState(false);
+  const [designDeleteConfirmation, setDesignDeleteConfirmation] =
+    useState<DesignDeleteConfirmation | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [canUndo, setCanUndo] = useState(false);
   const [canPaste, setCanPaste] = useState(false);
@@ -462,33 +472,39 @@ export default function App() {
     [refreshDesigns],
   );
 
-  const deleteDesign = useCallback(async () => {
+  const requestDesignDelete = useCallback(() => {
     const currentDesignId = designIdRef.current;
     if (!currentDesignId) return;
     if (savePromiseRef.current) {
-      throw new Error("Wait for the current save to finish before deleting.");
+      setNotice("Wait for the current save to finish before deleting.");
+      return;
     }
 
-    const currentDesignName = designNameRef.current.trim() || "this design";
-    const confirmed = window.confirm(
-      `Delete "${currentDesignName}"? This action cannot be undone.`,
-    );
-    if (!confirmed) return;
+    setDesignDeleteConfirmation({
+      id: currentDesignId,
+      name: designNameRef.current.trim() || "this design",
+    });
+  }, []);
+
+  const deleteDesign = useCallback(async () => {
+    const target = designDeleteConfirmation;
+    if (!target) return;
 
     setIsDeletingDesign(true);
     try {
-      await api.deleteDesign(currentDesignId);
+      await api.deleteDesign(target.id);
       setDesigns((current) =>
-        current.filter((design) => design.id !== currentDesignId),
+        current.filter((design) => design.id !== target.id),
       );
-      if (designIdRef.current === currentDesignId) {
+      setDesignDeleteConfirmation(null);
+      if (designIdRef.current === target.id) {
         newDesign();
-        setNotice(`Deleted ${currentDesignName}.`);
+        setNotice(`Deleted ${target.name}.`);
       }
     } finally {
       setIsDeletingDesign(false);
     }
-  }, [newDesign]);
+  }, [designDeleteConfirmation, newDesign]);
 
   const exportDesign = useCallback(
     () =>
@@ -775,6 +791,15 @@ export default function App() {
     return () => window.clearTimeout(timeout);
   }, [notice]);
 
+  useEffect(() => {
+    if (!designDeleteConfirmation || isDeletingDesign) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDesignDeleteConfirmation(null);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [designDeleteConfirmation, isDeletingDesign]);
+
   const selectedPart = useMemo(
     () => parts.find((part) => part.id === selectedPartId) ?? null,
     [parts, selectedPartId],
@@ -830,40 +855,31 @@ export default function App() {
               </option>
             ))}
           </select>
-          <button
-            className="button button-quiet"
-            type="button"
+          <IconButton
+            icon={FilePlus2}
+            label="New design"
+            className="design-action-button"
             disabled={isDeletingDesign}
             onClick={() => newDesign()}
-          >
-            NEW
-          </button>
-          <button
-            className="button button-danger design-delete-button"
-            type="button"
-            aria-label="Delete saved design"
-            title="Delete saved design"
-            disabled={!designId || saveStatus === "saving" || isDeletingDesign}
-            onClick={() =>
-              void deleteDesign().catch((error) =>
-                setNotice(`Delete failed: ${errorMessage(error)}`),
-              )
-            }
-          >
-            <Trash2 aria-hidden="true" />
-          </button>
-          <button
-            className="button button-primary"
-            type="button"
+          />
+          <IconButton
+            icon={Save}
+            label={saveStatus === "saving" ? "Saving design" : "Save design"}
+            className="design-action-button design-action-save"
             disabled={
               saveStatus === "saving" || isDeletingDesign || user === undefined
             }
             onClick={() =>
               void saveDesign().catch((error) => setNotice(errorMessage(error)))
             }
-          >
-            {saveStatus === "saving" ? "SAVING" : "SAVE SHIP"}
-          </button>
+          />
+          <IconButton
+            icon={Trash2}
+            label="Delete saved design"
+            className="design-action-button design-action-delete"
+            disabled={!designId || saveStatus === "saving" || isDeletingDesign}
+            onClick={requestDesignDelete}
+          />
         </div>
 
         <div className="header-status">
@@ -898,9 +914,7 @@ export default function App() {
               aria-label={`Add ${SHAPE_LABELS[type]}`}
               onClick={() => addShape(type)}
             >
-              <span className="shape-glyph" aria-hidden="true">
-                <i />
-              </span>
+              <ShapeIcon type={type} />
               <span>{SHAPE_LABELS[type]}</span>
               <small>0{index + 1}</small>
             </button>
@@ -1190,6 +1204,46 @@ export default function App() {
       {notice && (
         <div className="notice" role="status">
           {notice}
+        </div>
+      )}
+
+      {designDeleteConfirmation && (
+        <div className="confirmation-backdrop">
+          <section
+            className="confirmation-dialog"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="delete-design-title"
+            aria-describedby="delete-design-description"
+          >
+            <h2 id="delete-design-title">Delete ship design?</h2>
+            <p id="delete-design-description">
+              Delete <strong>{designDeleteConfirmation.name}</strong>? This
+              action cannot be undone.
+            </p>
+            <div className="confirmation-actions">
+              <button
+                type="button"
+                autoFocus
+                disabled={isDeletingDesign}
+                onClick={() => setDesignDeleteConfirmation(null)}
+              >
+                CANCEL
+              </button>
+              <button
+                className="confirmation-delete"
+                type="button"
+                disabled={isDeletingDesign}
+                onClick={() =>
+                  void deleteDesign().catch((error) =>
+                    setNotice(`Delete failed: ${errorMessage(error)}`),
+                  )
+                }
+              >
+                {isDeletingDesign ? "DELETING" : "DELETE"}
+              </button>
+            </div>
+          </section>
         </div>
       )}
     </main>
