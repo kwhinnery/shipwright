@@ -90,8 +90,7 @@ a:focus-visible {
   min-width: 0;
   border-bottom: 1px solid var(--line-bright);
   background:
-    linear-gradient(90deg, rgba(116, 247, 210, 0.07), transparent 32%),
-    #061511;
+    linear-gradient(90deg, rgba(116, 247, 210, 0.07), transparent 32%), #061511;
   box-shadow: 0 1px 16px rgba(1, 15, 12, 0.85);
 }
 
@@ -111,11 +110,17 @@ a:focus-visible {
   place-items: center;
   width: 38px;
   height: 38px;
-  color: #03120e;
-  font-weight: 900;
-  letter-spacing: -0.08em;
-  background: var(--cyan);
-  clip-path: polygon(0 0, 100% 0, 100% 72%, 72% 100%, 0 100%);
+  border: 1px solid var(--line-bright);
+  color: var(--cyan);
+  background:
+    linear-gradient(135deg, rgba(116, 247, 210, 0.12), transparent 60%), #061511;
+  box-shadow: inset 0 0 12px rgba(116, 247, 210, 0.06);
+}
+
+.wordmark-mark svg,
+.auth-mark svg {
+  width: 58%;
+  height: 58%;
 }
 
 .wordmark div {
@@ -125,7 +130,7 @@ a:focus-visible {
 .wordmark strong {
   display: block;
   color: var(--cyan);
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1;
   letter-spacing: 0.12em;
 }
@@ -376,6 +381,45 @@ a:focus-visible {
   display: none;
 }
 
+[data-shape="ramp"] .shape-glyph::before {
+  inset: 3px 2px;
+  clip-path: polygon(0 100%, 100% 100%, 100% 10%);
+  background: rgba(116, 247, 210, 0.12);
+}
+
+[data-shape="ramp"] .shape-glyph::after {
+  display: none;
+}
+
+[data-shape="trapezoid"] .shape-glyph::before {
+  inset: 4px 2px;
+  clip-path: polygon(22% 0, 78% 0, 100% 100%, 0 100%);
+  background: rgba(116, 247, 210, 0.12);
+}
+
+[data-shape="trapezoid"] .shape-glyph::after {
+  display: none;
+}
+
+[data-shape="tapered-block"] .shape-glyph::before {
+  inset: 5px 1px 2px 6px;
+  clip-path: polygon(20% 0, 100% 18%, 100% 100%, 0 82%);
+  background: rgba(116, 247, 210, 0.12);
+}
+
+[data-shape="tapered-block"] .shape-glyph::after {
+  inset: 1px 7px 7px 2px;
+  clip-path: polygon(20% 0, 100% 18%, 100% 100%, 0 82%);
+}
+
+[data-shape="tapered-block"] .shape-glyph i {
+  top: 5px;
+  left: 4px;
+  width: 14px;
+  border-width: 1px 0 0;
+  transform: rotate(9deg);
+}
+
 [data-shape="cylinder"] .shape-glyph::before {
   inset: 3px 5px;
   border-radius: 50%;
@@ -527,30 +571,6 @@ a:focus-visible {
     0 0 20px rgba(11, 95, 72, 0.09);
 }
 
-.viewport-frame::before,
-.viewport-frame::after {
-  position: absolute;
-  z-index: 4;
-  width: 46px;
-  height: 46px;
-  pointer-events: none;
-  content: "";
-}
-
-.viewport-frame::before {
-  top: 8px;
-  left: 8px;
-  border-top: 2px solid var(--amber);
-  border-left: 2px solid var(--amber);
-}
-
-.viewport-frame::after {
-  right: 8px;
-  bottom: 8px;
-  border-right: 2px solid var(--amber);
-  border-bottom: 2px solid var(--amber);
-}
-
 .viewport-frame canvas {
   display: block;
   width: 100% !important;
@@ -569,6 +589,158 @@ a:focus-visible {
   font-size: 8px;
   letter-spacing: 0.1em;
   pointer-events: none;
+}
+
+.viewport-controls {
+  position: absolute;
+  z-index: 7;
+  top: 23px;
+  right: 23px;
+  display: flex;
+  gap: 7px;
+  align-items: stretch;
+}
+
+.view-modes {
+  display: flex;
+  border: 1px solid var(--line-bright);
+  background: rgba(2, 11, 9, 0.86);
+}
+
+.canvas-color-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border: 1px solid var(--line-bright);
+  color: var(--dim);
+  background:
+    linear-gradient(135deg, rgba(116, 247, 210, 0.08), transparent 62%),
+    rgba(2, 11, 9, 0.9);
+}
+
+.canvas-color-control > span {
+  display: grid;
+  width: 31px;
+  height: 28px;
+  place-items: center;
+}
+
+.canvas-color-control input {
+  width: 31px;
+  height: 28px;
+  padding: 5px;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+}
+
+.canvas-color-control input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.canvas-color-control input::-webkit-color-swatch {
+  border: 1px solid rgba(200, 248, 232, 0.68);
+  border-radius: 0;
+}
+
+.canvas-color-control input::-moz-color-swatch {
+  border: 1px solid rgba(200, 248, 232, 0.68);
+  border-radius: 0;
+}
+
+.edit-actions {
+  position: absolute;
+  z-index: 7;
+  top: 23px;
+  left: 23px;
+  display: flex;
+  gap: 7px;
+}
+
+.viewport-controls,
+.edit-actions {
+  padding: 5px;
+  border: 1px solid var(--line);
+  background: #061511;
+  box-shadow:
+    inset 0 0 12px rgba(116, 247, 210, 0.04),
+    0 0 14px rgba(1, 10, 8, 0.72);
+}
+
+.icon-button {
+  position: relative;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--line-bright);
+  border-radius: 0;
+  color: var(--muted);
+  background:
+    linear-gradient(135deg, rgba(116, 247, 210, 0.1), transparent 58%),
+    rgba(2, 11, 9, 0.9);
+  box-shadow:
+    inset 0 0 10px rgba(116, 247, 210, 0.04),
+    0 0 10px rgba(2, 11, 9, 0.7);
+}
+
+.icon-button::before {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 4px;
+  height: 4px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  content: "";
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.icon-button:hover:not(:disabled) {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(242, 184, 75, 0.09);
+  box-shadow:
+    inset 0 0 12px rgba(242, 184, 75, 0.08),
+    0 0 12px rgba(242, 184, 75, 0.1);
+}
+
+.icon-button svg {
+  pointer-events: none;
+}
+
+.view-modes button {
+  height: 28px;
+  padding: 0 10px;
+  border: 0;
+  color: var(--dim);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+}
+
+.view-modes button + button {
+  border-left: 1px solid var(--line);
+}
+
+.view-modes button:hover,
+.view-modes button.active {
+  color: #08130f;
+  background: var(--cyan);
+}
+
+.view-solid .scanlines {
+  opacity: 0.045;
+}
+
+.view-solid .reticle {
+  opacity: 0.45;
 }
 
 .viewport-label-bottom {
@@ -714,7 +886,8 @@ a:focus-visible {
 }
 
 .part-name-input > span,
-.color-field > span {
+.color-field > span,
+.texture-field > span {
   display: block;
   margin-bottom: 6px;
   color: var(--dim);
@@ -806,6 +979,75 @@ a:focus-visible {
   pointer-events: none;
 }
 
+.shape-features {
+  min-width: 0;
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+}
+
+.shape-features legend {
+  margin-bottom: 6px;
+  color: var(--dim);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+
+.shape-features label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 9px;
+  background: #020b09;
+  cursor: pointer;
+}
+
+.shape-features input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.shape-features i {
+  position: relative;
+  width: 28px;
+  height: 14px;
+  border: 1px solid var(--line-bright);
+  background: rgba(4, 22, 18, 0.9);
+}
+
+.shape-features i::after {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  content: "";
+  background: var(--muted);
+  transition: transform 120ms ease;
+}
+
+.shape-features input:checked + i {
+  border-color: var(--amber);
+  background: rgba(242, 184, 75, 0.09);
+}
+
+.shape-features input:checked + i::after {
+  background: var(--amber);
+  transform: translateX(14px);
+}
+
+.shape-features input:focus-visible + i {
+  outline: 1px solid var(--amber);
+  outline-offset: 2px;
+}
+
 .color-field {
   display: block;
   margin-top: 3px;
@@ -832,6 +1074,22 @@ a:focus-visible {
 .color-field code {
   color: var(--muted);
   font-size: 9px;
+}
+
+.texture-field {
+  display: block;
+  margin-top: 12px;
+}
+
+.texture-field select {
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink);
+  font-size: 9px;
+  background: #020b09;
 }
 
 .delete-part {
@@ -957,7 +1215,6 @@ a:focus-visible {
   width: 54px;
   height: 54px;
   margin: 0 auto 22px;
-  font-size: 18px;
 }
 
 .auth-screen h1 {
@@ -1082,7 +1339,7 @@ a:focus-visible {
     display: flex;
     flex: 1;
     gap: 6px;
-    min-width: 630px;
+    min-width: 960px;
     padding: 8px;
   }
 
@@ -1176,6 +1433,10 @@ a:focus-visible {
   .design-controls select {
     flex: 1 1 auto;
     min-width: 0;
+  }
+
+  .canvas-color-control > span {
+    display: none;
   }
 }
 

@@ -10,11 +10,15 @@ identity and a Cloudflare D1 database after deployment.
 
 ## Features
 
-- Add boxes, wedges, cylinders, spheres, and cones.
+- Add boxes, wedges, ramps, trapezoidal prisms, tapered blocks, cylinders,
+  spheres, and cones.
+- Chamfer boxes, hollow cylinders, and truncate cones into conical frustums.
 - Select, move, rotate, and scale each part in three dimensions.
 - Orbit, pan, and zoom the camera.
+- Change the editing canvas background color for each design.
 - Save private ship designs for the signed-in ChatGPT user.
 - Load saved designs.
+- Export and import portable JSON files to share designs.
 - Use WebMCP tools to do the same editor actions from a model.
 - Use a local test user and a local persistent D1 database during development.
 
@@ -47,11 +51,22 @@ Run the production checks with:
 npm test
 ```
 
+## Share designs
+
+Use **Export** to download the current design as a portable JSON file. The file
+contains the design name, parts, transforms, camera position, and canvas
+background color. Send this file to another Shipwright user.
+
+Use **Import** to open a shared JSON file. An imported file opens as a new,
+unsaved design. Select **Save Ship** to add it to your private saved designs.
+
 ## WebMCP development
 
-Shipwright registers ten tools through `document.modelContext`. The tools can
-inspect the editor, add and update parts, control the camera, and manage saved
-designs. Tool input uses JSON Schema and the callbacks also validate all input.
+Shipwright registers tools through `document.modelContext`. The tools can
+inspect the editor, add and update parts, control the camera and canvas, and
+manage saved designs. The `export_ship_design` and `import_ship_design` tools
+provide the same portable JSON sharing workflow. Tool input uses JSON Schema,
+and the callbacks also validate all input.
 
 WebMCP is available as an origin trial in supported Chrome versions. For local
 tests, enable `chrome://flags/#enable-webmcp-testing` and restart Chrome. Enable
@@ -73,8 +88,8 @@ ChatGPT Sites sends these headers for a signed-in user:
 The Hono API checks identity on the server. Every D1 query includes the stable
 user ID. One user cannot read or change another user's designs.
 
-The D1 schema is in `db/schema.ts`. Generated migrations are in `drizzle/`.
-The API also creates the schema when an empty local database receives its first
+The D1 schema is in `db/schema.ts`. Generated migrations are in `drizzle/`. The
+API also creates the schema when an empty local database receives its first
 request.
 
 ## Deploy to ChatGPT Sites

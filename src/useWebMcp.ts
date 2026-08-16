@@ -1,26 +1,38 @@
 import { useEffect, useState, type RefObject } from "react";
 import {
+  parseShipwrightDesignFile,
+  SHIPWRIGHT_DESIGN_FILE_VERSION,
+  SHIPWRIGHT_DESIGN_FORMAT,
+} from "./designFormat";
+import {
+  MATERIAL_TEXTURES,
+  SHAPE_FEATURE_BY_TYPE,
+  SHAPE_FEATURES,
   SHAPE_TYPES,
   type CameraState,
+  type ShapeFeatures,
   type ShapeType,
-  type ShipPart,
+  type ShipPartUpdate,
   type Vector3Tuple,
 } from "./types";
 
 export interface EditorCommands {
   getState: () => unknown;
   addShape: (type: ShapeType, position?: Vector3Tuple) => unknown;
-  updatePart: (
-    id: string,
-    patch: Partial<Pick<ShipPart, "name" | "color" | "position" | "rotation" | "scale">>,
-  ) => unknown;
+  updatePart: (id: string, patch: ShipPartUpdate) => unknown;
   removePart: (id: string) => unknown;
+  copySelectedPart: () => unknown;
+  pastePart: () => unknown;
+  undo: () => unknown;
   selectPart: (id: string | null) => unknown;
   setCamera: (camera: CameraState) => unknown;
+  setCanvasBackground: (color: string) => unknown;
   newDesign: (name?: string) => unknown;
   saveDesign: (name?: string) => Promise<unknown>;
   listDesigns: () => Promise<unknown>;
   loadDesign: (id: string) => Promise<unknown>;
+  exportDesign: () => unknown;
+  importDesign: (value: unknown) => unknown;
 }
 
 export type WebMcpStatus = "ready" | "unavailable" | "error";
@@ -32,9 +44,58 @@ const vectorSchema = {
   maxItems: 3,
 } as const;
 
-export function useWebMcp(
-  commands: RefObject<EditorCommands>,
-): WebMcpStatus {
+const colorSchema = {
+  type: "string",
+  pattern: "^#[0-9a-fA-F]{6}$",
+} as const;
+
+const shipwrightDesignFileSchema = {
+  type: "object",
+  properties: {
+    format: {
+      type: "string",
+      enum: [SHIPWRIGHT_DESIGN_FORMAT],
+    },
+    formatVersion: {
+      type: "number",
+      enum: [SHIPWRIGHT_DESIGN_FILE_VERSION],
+    },
+    name: {
+      type: "string",
+      minLength: 1,
+      maxLength: 80,
+    },
+    data: {
+      type: "object",
+      properties: {
+        version: { type: "number", enum: [1] },
+        parts: {
+          type: "array",
+          items: {
+            oneOf: SHAPE_TYPES.map(shipPartSchema),
+          },
+          maxItems: 100,
+        },
+        camera: {
+          type: "object",
+          properties: {
+            position: boundedVectorSchema(-1_000, 1_000),
+            target: boundedVectorSchema(-1_000, 1_000),
+          },
+          required: ["position", "target"],
+          additionalProperties: false,
+        },
+        backgroundColor: colorSchema,
+      },
+      required: ["version", "parts", "camera"],
+      additionalProperties: false,
+    },
+  },
+  required: ["format", "formatVersion", "name", "data"],
+  additionalProperties: false,
+} as const;
+
+export function useWebMcp(commands: RefObject<EditorCommands>): WebMcpStatus {
   const [status, setStatus] = useState<WebMcpStatus>("unavailable");
 
   useEffect(() => {
@@ -80,13 +141,34 @@ export function useWebMcp(
         name: "update_ship_part",
         title: "Update ship part",
         description:
-          "Move, rotate, scale, recolor, or rename an existing ship part. Transform values are absolute.",
+          "Move, rotate, scale, recolor, texture, rename, or change supported shape features on an existing ship part. Transform values are absolute.",
         inputSchema: {
           type: "object",
           properties: {
             id: { type: "string" },
             name: { type: "string", minLength: 1, maxLength: 80 },
             color: { type: "string", pattern: "^#[0-9a-fA-F]{6}$" },
+            texture: { type: "string", enum: [...MATERIAL_TEXTURES] },
+            features: {
+              type: "object",
+              description:
+                "Shape-specific toggles. Use chamfered for boxes, hollow for cylinders, and truncated for cones.",
+              properties: {
+                chamfered: {
+                  type: "boolean",
+                  description: "Chamfer the edges of a box.",
+                },
+                hollow: {
+                  type: "boolean",
+                  description: "Turn a cylinder into a hollow tube.",
+                },
+                truncated: {
+                  type: "boolean",
+                  description: "Turn a cone into a conical frustum.",
+                },
+              },
+              additionalProperties: false,
+            },
             position: vectorSchema,
             rotation: vectorSchema,
             scale: vectorSchema,
@@ -96,19 +178,38 @@ export function useWebMcp(
         },
         execute: (input: Record<string, unknown>) => {
           const id = requireString(input.id, "id");
-          const patch: Partial<
-            Pick<ShipPart, "name" | "color" | "position" | "rotation" | "scale">
-          > = {};
-          if (input.name !== undefined) patch.name = requireString(input.name, "name");
-          if (input.color !== undefined) patch.color = requireColor(input.color);
-          if (input.position !== undefined) patch.position = requireVector(input.position, "position");
-          if (input.rotation !== undefined) patch.rotation = requireVector(input.rotation, "rotation");
+          const patch: ShipPartUpdate = {};
+          if (input.name !== undefined)
+            patch.name = requireString(input.name, "name");
+          if (input.color !== undefined)
+            patch.color = requireColor(input.color);
+          if (input.texture !== undefined) {
+            if (
+              typeof input.texture !== "string" ||
+              !MATERIAL_TEXTURES.includes(
+                input.texture as (typeof MATERIAL_TEXTURES)[number],
+              )
+            ) {
+              throw new TypeError(
+                `texture must be one of: ${MATERIAL_TEXTURES.join(", ")}`,
+              );
+            }
+            patch.texture = input.texture as ShipPartUpdate["texture"];
+          }
+          if (input.features !== undefined)
+            patch.features = requireShapeFeatures(input.features);
+          if (input.position !== undefined)
+            patch.position = requireVector(input.position, "position");
+          if (input.rotation !== undefined)
+            patch.rotation = requireVector(input.rotation, "rotation");
           if (input.scale !== undefined) {
             const scale = requireVector(input.scale, "scale");
-            if (scale.some((value) => value <= 0)) throw new TypeError("scale values must be greater than zero");
+            if (scale.some((value) => value <= 0))
+              throw new TypeError("scale values must be greater than zero");
             patch.scale = scale;
           }
-          if (Object.keys(patch).length === 0) throw new TypeError("Provide at least one field to update.");
+          if (Object.keys(patch).length === 0)
+            throw new TypeError("Provide at least one field to update.");
           return command().updatePart(id, patch);
         },
       },
@@ -121,14 +222,33 @@ export function useWebMcp(
           command().removePart(requireString(input.id, "id")),
       },
       {
+        name: "copy_selected_ship_part",
+        title: "Copy selected ship part",
+        description: "Copy the selected ship part to the editor clipboard.",
+        inputSchema: emptyObjectSchema(),
+        execute: () => command().copySelectedPart(),
+      },
+      {
+        name: "paste_ship_part",
+        title: "Paste ship part",
+        description:
+          "Paste the copied ship part with a new ID and a small position offset.",
+        inputSchema: emptyObjectSchema(),
+        execute: () => command().pastePart(),
+      },
+      {
+        name: "undo_ship_edit",
+        title: "Undo ship edit",
+        description: "Undo the most recent component change.",
+        inputSchema: emptyObjectSchema(),
+        execute: () => command().undo(),
+      },
+      {
         name: "select_ship_part",
         title: "Select ship part",
         description:
           "Select a ship part by ID so its transform controls and inspector are visible. Use null to clear selection.",
-        inputSchema: objectSchema(
-          { id: { type: ["string", "null"] } },
-          ["id"],
-        ),
+        inputSchema: objectSchema({ id: { type: ["string", "null"] } }, ["id"]),
         execute: (input: Record<string, unknown>) => {
           if (input.id === null) return command().selectPart(null);
           return command().selectPart(requireString(input.id, "id"));
@@ -150,13 +270,27 @@ export function useWebMcp(
           }),
       },
       {
+        name: "set_canvas_background",
+        title: "Set canvas background",
+        description:
+          "Set the background and fog color of the visible editing canvas.",
+        inputSchema: objectSchema(
+          { color: { type: "string", pattern: "^#[0-9a-fA-F]{6}$" } },
+          ["color"],
+        ),
+        execute: (input: Record<string, unknown>) =>
+          command().setCanvasBackground(requireColor(input.color)),
+      },
+      {
         name: "new_ship_design",
         title: "New ship design",
         description: "Start a new empty ship design in the visible editor.",
         inputSchema: objectSchema({ name: { type: "string", maxLength: 80 } }),
         execute: (input: Record<string, unknown>) =>
           command().newDesign(
-            input.name === undefined ? undefined : requireString(input.name, "name"),
+            input.name === undefined
+              ? undefined
+              : requireString(input.name, "name"),
           ),
       },
       {
@@ -167,7 +301,9 @@ export function useWebMcp(
         inputSchema: objectSchema({ name: { type: "string", maxLength: 80 } }),
         execute: (input: Record<string, unknown>) =>
           command().saveDesign(
-            input.name === undefined ? undefined : requireString(input.name, "name"),
+            input.name === undefined
+              ? undefined
+              : requireString(input.name, "name"),
           ),
       },
       {
@@ -181,15 +317,36 @@ export function useWebMcp(
       {
         name: "load_ship_design",
         title: "Load ship design",
-        description: "Load one saved ship design into the visible editor by its ID.",
+        description:
+          "Load one saved ship design into the visible editor by its ID.",
         inputSchema: objectSchema({ id: { type: "string" } }, ["id"]),
         execute: (input: Record<string, unknown>) =>
           command().loadDesign(requireString(input.id, "id")),
       },
+      {
+        name: "export_ship_design",
+        title: "Export ship design",
+        description:
+          "Export the visible ship as a portable, versioned Shipwright design object for sharing.",
+        inputSchema: emptyObjectSchema(),
+        annotations: { readOnlyHint: true },
+        execute: () => command().exportDesign(),
+      },
+      {
+        name: "import_ship_design",
+        title: "Import ship design",
+        description:
+          "Replace the visible editor contents with a portable Shipwright design. The imported design remains unsaved until it is saved explicitly.",
+        inputSchema: shipwrightDesignFileSchema,
+        execute: (input: Record<string, unknown>) =>
+          command().importDesign(requireShipwrightDesignFile(input)),
+      },
     ];
 
     void Promise.all(
-      tools.map((tool) => context.registerTool(tool, { signal: controller.signal })),
+      tools.map((tool) =>
+        context.registerTool(tool, { signal: controller.signal }),
+      ),
     )
       .then(() => {
         if (active) setStatus("ready");
@@ -230,7 +387,30 @@ function requireColor(value: unknown): string {
   return value;
 }
 
-function optionalVector(value: unknown, field: string): Vector3Tuple | undefined {
+function requireShapeFeatures(value: unknown): ShapeFeatures {
+  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+    throw new TypeError("features must be an object");
+  }
+
+  const features = value as Record<string, unknown>;
+  if (
+    Object.entries(features).some(
+      ([feature, enabled]) =>
+        !SHAPE_FEATURES.includes(feature as (typeof SHAPE_FEATURES)[number]) ||
+        typeof enabled !== "boolean",
+    )
+  ) {
+    throw new TypeError(
+      "features can contain only chamfered, hollow, or truncated booleans",
+    );
+  }
+  return features as ShapeFeatures;
+}
+
+function optionalVector(
+  value: unknown,
+  field: string,
+): Vector3Tuple | undefined {
   return value === undefined ? undefined : requireVector(value, field);
 }
 
@@ -245,14 +425,58 @@ function requireVector(value: unknown, field: string): Vector3Tuple {
   return value as Vector3Tuple;
 }
 
+function requireShipwrightDesignFile(value: unknown) {
+  const file = parseShipwrightDesignFile(value);
+  if (!file) {
+    throw new TypeError(
+      "The design must use the supported Shipwright design file format.",
+    );
+  }
+  return file;
+}
+
+function boundedVectorSchema(minimum: number, maximum: number) {
+  return {
+    type: "array",
+    items: { type: "number", minimum, maximum },
+    minItems: 3,
+    maxItems: 3,
+  } as const;
+}
+
+function shipPartSchema(type: ShapeType) {
+  const feature = SHAPE_FEATURE_BY_TYPE[type];
+  return {
+    type: "object",
+    properties: {
+      id: { type: "string", minLength: 1, maxLength: 100 },
+      name: { type: "string", maxLength: 80 },
+      type: { type: "string", enum: [type] },
+      color: colorSchema,
+      texture: { type: "string", enum: [...MATERIAL_TEXTURES] },
+      ...(feature
+        ? {
+            features: {
+              type: "object",
+              properties: { [feature]: { type: "boolean" } },
+              additionalProperties: false,
+            },
+          }
+        : {}),
+      position: boundedVectorSchema(-1_000, 1_000),
+      rotation: boundedVectorSchema(-Math.PI * 100, Math.PI * 100),
+      scale: boundedVectorSchema(0.01, 100),
+    },
+    required: ["id", "name", "type", "color", "position", "rotation", "scale"],
+    additionalProperties: false,
+  } as const;
+}
+
 function emptyObjectSchema() {
   return { type: "object", properties: {}, additionalProperties: false };
 }
 
-function objectSchema(
-  properties: Record<string, object>,
-  required?: string[],
-) {
+function objectSchema(properties: Record<string, object>, required?: string[]) {
   return {
     type: "object",
     properties,
