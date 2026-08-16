@@ -10,7 +10,7 @@ import {
   serializeDesign,
   type DesignRow,
 } from "./database";
-import { parseDesignInput } from "./validation";
+import { parseDesignInput } from "../src/designFormat";
 
 interface Bindings {
   DB: D1Database;

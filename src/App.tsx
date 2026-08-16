@@ -19,6 +19,10 @@ import {
 } from "lucide-react";
 import * as api from "./api";
 import { ApiError } from "./api";
+import {
+  readCameraPreference,
+  writeCameraPreference,
+} from "./cameraPreferences";
 import { IconButton } from "./components/IconButton";
 import {
   MAX_SHIPWRIGHT_FILE_BYTES,
@@ -46,7 +50,12 @@ import {
   type Vector3Tuple,
   type ViewMode,
 } from "./types";
-import { useWebMcp, type EditorCommands, type WebMcpStatus } from "./useWebMcp";
+import {
+  useWebMcp,
+  type EditorCommands,
+  type WebMcpInvocation,
+  type WebMcpStatus,
+} from "./useWebMcp";
 
 const ShipCanvas = lazy(() =>
   import("./editor/ShipCanvas").then((module) => ({
@@ -72,7 +81,8 @@ const TEXTURE_LABELS = {
   composite: "Composite weave",
 } as const;
 
-type SaveStatus = "idle" | "dirty" | "saving" | "saved" | "error";
+type SaveStatus = "dirty" | "saving" | "saved" | "error";
+type InspectorTab = "inspector" | "webmcp";
 
 interface EditorSnapshot {
   parts: ShipPart[];
@@ -84,7 +94,7 @@ export default function App() {
   const [selectedPartId, setSelectedPartId] = useState<string | null>(null);
   const [transformMode, setTransformMode] =
     useState<TransformMode>("translate");
-  const [viewMode, setViewMode] = useState<ViewMode>("skeleton");
+  const [viewMode, setViewMode] = useState<ViewMode>("solid");
   const [canvasBackground, setCanvasBackgroundState] = useState(
     DEFAULT_CANVAS_BACKGROUND,
   );
@@ -98,15 +108,24 @@ export default function App() {
   const [notice, setNotice] = useState<string | null>(null);
   const [canUndo, setCanUndo] = useState(false);
   const [canPaste, setCanPaste] = useState(false);
+  const [inspectorTab, setInspectorTab] =
+    useState<InspectorTab>("inspector");
+  const [webMcpInvocations, setWebMcpInvocations] = useState<
+    WebMcpInvocation[]
+  >([]);
 
   const partsRef = useRef(parts);
   const selectedPartIdRef = useRef(selectedPartId);
   const canvasBackgroundRef = useRef(canvasBackground);
   const cameraRef = useRef(camera);
+  const activeCameraDesignIdRef = useRef<string | null>(null);
+  const documentGenerationRef = useRef(0);
+  const designLoadTokenRef = useRef(0);
   const designIdRef = useRef(designId);
   const designNameRef = useRef(designName);
   const saveStatusRef = useRef(saveStatus);
   const savePromiseRef = useRef<Promise<SavedDesign> | null>(null);
+  const savePromiseGenerationRef = useRef<number | null>(null);
   const historyRef = useRef<EditorSnapshot[]>([]);
   const clipboardRef = useRef<ShipPart | null>(null);
   const pasteCountRef = useRef(0);
@@ -271,6 +290,7 @@ export default function App() {
       cameraRef.current = next;
       setCameraState(next);
       setCameraRevision((value) => value + 1);
+      writeCameraPreference(activeCameraDesignIdRef.current, next);
       markDirty();
       return { camera: next };
     },
@@ -281,6 +301,7 @@ export default function App() {
     (next: CameraState) => {
       cameraRef.current = next;
       setCameraState(next);
+      writeCameraPreference(activeCameraDesignIdRef.current, next);
       markDirty();
     },
     [markDirty],
@@ -299,10 +320,14 @@ export default function App() {
 
   const applySavedDesign = useCallback(
     (saved: SavedDesign) => {
+      documentGenerationRef.current += 1;
+      activeCameraDesignIdRef.current = null;
+      const nextCamera =
+        readCameraPreference(saved.id) ?? cloneCamera(saved.data.camera);
       partsRef.current = saved.data.parts;
       setParts(saved.data.parts);
-      cameraRef.current = saved.data.camera;
-      setCameraState(saved.data.camera);
+      cameraRef.current = nextCamera;
+      setCameraState(nextCamera);
       setCameraRevision((value) => value + 1);
       const savedBackground =
         saved.data.backgroundColor ?? DEFAULT_CANVAS_BACKGROUND;
@@ -310,6 +335,7 @@ export default function App() {
       setCanvasBackgroundState(savedBackground);
       designIdRef.current = saved.id;
       setDesignId(saved.id);
+      activeCameraDesignIdRef.current = saved.id;
       designNameRef.current = saved.name;
       setDesignName(saved.name);
       selectedPartIdRef.current = null;
@@ -329,7 +355,9 @@ export default function App() {
 
   const loadDesign = useCallback(
     async (id: string) => {
+      const loadToken = ++designLoadTokenRef.current;
       const saved = await api.getDesign(id);
+      if (loadToken !== designLoadTokenRef.current) return saved;
       applySavedDesign(saved);
       setNotice(`Loaded ${saved.name}.`);
       return saved;
@@ -339,6 +367,9 @@ export default function App() {
 
   const newDesign = useCallback(
     (name = "Untitled Vessel") => {
+      designLoadTokenRef.current += 1;
+      documentGenerationRef.current += 1;
+      activeCameraDesignIdRef.current = null;
       partsRef.current = [];
       setParts([]);
       selectedPartIdRef.current = null;
@@ -363,7 +394,18 @@ export default function App() {
 
   const saveDesign = useCallback(
     async (requestedName?: string): Promise<SavedDesign> => {
-      if (savePromiseRef.current) return savePromiseRef.current;
+      if (savePromiseRef.current) {
+        if (
+          savePromiseGenerationRef.current === documentGenerationRef.current
+        ) {
+          return savePromiseRef.current;
+        }
+        throw new Error("Wait for the previous design save to finish.");
+      }
+      const documentGeneration = documentGenerationRef.current;
+      const currentDesignId = designIdRef.current;
+      const creatingDesign = currentDesignId === null;
+      if (creatingDesign) designLoadTokenRef.current += 1;
 
       const cleanName = (requestedName ?? designNameRef.current).trim();
       if (!cleanName) throw new Error("Enter a design name before saving.");
@@ -383,26 +425,36 @@ export default function App() {
         },
       };
 
-      const request = designIdRef.current
-        ? api.updateDesign(designIdRef.current, payload)
+      const request = currentDesignId
+        ? api.updateDesign(currentDesignId, payload)
         : api.createDesign(payload);
 
       savePromiseRef.current = request;
+      savePromiseGenerationRef.current = documentGeneration;
       try {
         const saved = await request;
-        designIdRef.current = saved.id;
-        setDesignId(saved.id);
-        saveStatusRef.current = "saved";
-        setSaveStatus("saved");
-        setNotice(`Saved ${saved.name}.`);
+        if (documentGeneration === documentGenerationRef.current) {
+          designIdRef.current = saved.id;
+          setDesignId(saved.id);
+          activeCameraDesignIdRef.current = saved.id;
+          if (creatingDesign) {
+            writeCameraPreference(saved.id, cameraRef.current);
+          }
+          saveStatusRef.current = "saved";
+          setSaveStatus("saved");
+          setNotice(`Saved ${saved.name}.`);
+        }
         await refreshDesigns();
         return saved;
       } catch (error) {
-        saveStatusRef.current = "error";
-        setSaveStatus("error");
+        if (documentGeneration === documentGenerationRef.current) {
+          saveStatusRef.current = "error";
+          setSaveStatus("error");
+        }
         throw error;
       } finally {
         savePromiseRef.current = null;
+        savePromiseGenerationRef.current = null;
       }
     },
     [refreshDesigns],
@@ -438,6 +490,9 @@ export default function App() {
         imported.data.backgroundColor ?? DEFAULT_CANVAS_BACKGROUND
       ).toLowerCase();
 
+      designLoadTokenRef.current += 1;
+      documentGenerationRef.current += 1;
+      activeCameraDesignIdRef.current = null;
       partsRef.current = nextParts;
       setParts(nextParts);
       selectedPartIdRef.current = null;
@@ -560,11 +615,19 @@ export default function App() {
     ],
   );
 
-  const webMcpStatus = useWebMcp(commands);
+  const recordWebMcpInvocation = useCallback(
+    (invocation: WebMcpInvocation) => {
+      setWebMcpInvocations((current) => [invocation, ...current].slice(0, 100));
+    },
+    [],
+  );
+
+  const webMcpStatus = useWebMcp(commands, recordWebMcpInvocation);
 
   useEffect(() => {
     let active = true;
     const initialize = async () => {
+      const loadToken = ++designLoadTokenRef.current;
       try {
         const [session, savedDesigns] = await Promise.all([
           api.getSession(),
@@ -578,7 +641,9 @@ export default function App() {
         if (!latestDesign) return;
         try {
           const saved = await api.getDesign(latestDesign.id);
-          if (active) applySavedDesign(saved);
+          if (active && loadToken === designLoadTokenRef.current) {
+            applySavedDesign(saved);
+          }
         } catch (error) {
           if (active) setNotice(errorMessage(error));
         }
@@ -936,7 +1001,7 @@ export default function App() {
           <div className="reticle" aria-hidden="true">
             <i />
           </div>
-          <div className="viewport-label viewport-label-bottom">
+          <div className="viewport-label">
             <span>LMB ORBIT · RMB PAN · WHEEL ZOOM</span>
             <span>{saveStatusLabel(saveStatus)}</span>
           </div>
@@ -944,61 +1009,133 @@ export default function App() {
         </div>
       </section>
 
-      <aside className="inspector" aria-label="Part inspector">
-        <div className="panel-heading">
-          <span>INSPECTOR</span>
-          <b>{selectedPart ? "LIVE" : "IDLE"}</b>
+      <aside className="inspector" aria-label="Inspector pane">
+        <div className="inspector-tabs" role="tablist" aria-label="Inspector views">
+          <button
+            id="inspector-tab"
+            type="button"
+            role="tab"
+            aria-selected={inspectorTab === "inspector"}
+            aria-controls="inspector-panel"
+            className={inspectorTab === "inspector" ? "active" : ""}
+            onClick={() => setInspectorTab("inspector")}
+          >
+            INSPECTOR
+          </button>
+          <button
+            id="webmcp-tab"
+            type="button"
+            role="tab"
+            aria-selected={inspectorTab === "webmcp"}
+            aria-controls="webmcp-panel"
+            className={inspectorTab === "webmcp" ? "active" : ""}
+            onClick={() => setInspectorTab("webmcp")}
+          >
+            WEBMCP LOG
+            <b>{webMcpInvocations.length}</b>
+          </button>
         </div>
 
-        <div
-          className="transform-modes"
-          role="group"
-          aria-label="Transform mode"
-        >
-          {(["translate", "rotate", "scale"] as TransformMode[]).map((mode) => (
-            <button
-              key={mode}
-              type="button"
-              className={transformMode === mode ? "active" : ""}
-              aria-pressed={transformMode === mode}
-              onClick={() => setTransformMode(mode)}
+        {inspectorTab === "inspector" ? (
+          <div
+            id="inspector-panel"
+            className="inspector-panel"
+            role="tabpanel"
+            aria-labelledby="inspector-tab"
+          >
+            <div
+              className="transform-modes"
+              role="group"
+              aria-label="Transform mode"
             >
-              <span>
-                {mode === "translate" ? "G" : mode === "rotate" ? "R" : "S"}
-              </span>
-              {mode}
-            </button>
-          ))}
-        </div>
+              {(["translate", "rotate", "scale"] as TransformMode[]).map(
+                (mode) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    className={transformMode === mode ? "active" : ""}
+                    aria-pressed={transformMode === mode}
+                    onClick={() => setTransformMode(mode)}
+                  >
+                    <span>
+                      {mode === "translate"
+                        ? "G"
+                        : mode === "rotate"
+                          ? "R"
+                          : "S"}
+                    </span>
+                    {mode}
+                  </button>
+                ),
+              )}
+            </div>
 
-        {selectedPart ? (
-          <PartInspector
-            part={selectedPart}
-            onUpdate={(patch) => updatePart(selectedPart.id, patch)}
-            onDelete={() => removePart(selectedPart.id)}
-          />
+            {selectedPart ? (
+              <PartInspector
+                part={selectedPart}
+                onUpdate={(patch) => updatePart(selectedPart.id, patch)}
+                onDelete={() => removePart(selectedPart.id)}
+              />
+            ) : (
+              <div className="inspector-empty">
+                <span className="selection-box" aria-hidden="true" />
+                <strong>NO PART SELECTED</strong>
+                <p>Select a part in the viewport or assembly list.</p>
+              </div>
+            )}
+
+            <div className="camera-readout">
+              <div className="readout-heading">
+                <span>CAMERA VECTOR</span>
+                <button type="button" onClick={() => setCamera(DEFAULT_CAMERA)}>
+                  RESET
+                </button>
+              </div>
+              <code>
+                X {formatNumber(camera.position[0])} Y{" "}
+                {formatNumber(camera.position[1])} Z{" "}
+                {formatNumber(camera.position[2])}
+              </code>
+              <small>TARGET {camera.target.map(formatNumber).join(" / ")}</small>
+            </div>
+          </div>
         ) : (
-          <div className="inspector-empty">
-            <span className="selection-box" aria-hidden="true" />
-            <strong>NO PART SELECTED</strong>
-            <p>Select a part in the viewport or assembly list.</p>
+          <div
+            id="webmcp-panel"
+            className="inspector-panel webmcp-log"
+            role="tabpanel"
+            aria-labelledby="webmcp-tab"
+          >
+            <div className="webmcp-log-heading">
+              <span>TOOL INVOCATIONS</span>
+              {webMcpInvocations.length > 0 && (
+                <button type="button" onClick={() => setWebMcpInvocations([])}>
+                  CLEAR
+                </button>
+              )}
+            </div>
+            {webMcpInvocations.length === 0 ? (
+              <div className="webmcp-log-empty">
+                <strong>NO TOOL CALLS</strong>
+                <p>WebMCP tool calls will appear here.</p>
+              </div>
+            ) : (
+              <ol>
+                {webMcpInvocations.map((invocation) => (
+                  <li key={invocation.id}>
+                    <div>
+                      <code>{invocation.toolName}</code>
+                      <time dateTime={new Date(invocation.invokedAt).toISOString()}>
+                        {formatInvocationTime(invocation.invokedAt)}
+                      </time>
+                    </div>
+                    <pre>{JSON.stringify(invocation.input, null, 2)}</pre>
+                  </li>
+                ))}
+              </ol>
+            )}
           </div>
         )}
-
-        <div className="camera-readout">
-          <div className="readout-heading">
-            <span>CAMERA VECTOR</span>
-            <button type="button" onClick={() => setCamera(DEFAULT_CAMERA)}>
-              RESET
-            </button>
-          </div>
-          <code>
-            X {formatNumber(camera.position[0])} Y{" "}
-            {formatNumber(camera.position[1])} Z{" "}
-            {formatNumber(camera.position[2])}
-          </code>
-          <small>TARGET {camera.target.map(formatNumber).join(" / ")}</small>
-        </div>
       </aside>
 
       {notice && (
@@ -1215,7 +1352,6 @@ function webMcpLabel(status: WebMcpStatus): string {
 
 function saveStatusLabel(status: SaveStatus): string {
   const labels: Record<SaveStatus, string> = {
-    idle: "FRAME READY",
     dirty: "UNSAVED CHANGES",
     saving: "WRITING TO D1",
     saved: "DESIGN SECURED",
@@ -1254,6 +1390,14 @@ function cloneCamera(camera: CameraState): CameraState {
 function formatNumber(value: number): string {
   const sign = value < 0 ? "-" : "0";
   return `${sign}${Math.abs(value).toFixed(2).padStart(5, "0")}`;
+}
+
+function formatInvocationTime(value: number): string {
+  return new Date(value).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 }
 
 function roundForInput(value: number): number {

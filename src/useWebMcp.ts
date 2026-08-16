@@ -37,6 +37,13 @@ export interface EditorCommands {
 
 export type WebMcpStatus = "ready" | "unavailable" | "error";
 
+export interface WebMcpInvocation {
+  id: string;
+  toolName: string;
+  input: Record<string, unknown>;
+  invokedAt: number;
+}
+
 const vectorSchema = {
   type: "array",
   items: { type: "number" },
@@ -95,7 +102,10 @@ const shipwrightDesignFileSchema = {
   additionalProperties: false,
 } as const;
 
-export function useWebMcp(commands: RefObject<EditorCommands>): WebMcpStatus {
+export function useWebMcp(
+  commands: RefObject<EditorCommands>,
+  onInvocation: (invocation: WebMcpInvocation) => void,
+): WebMcpStatus {
   const [status, setStatus] = useState<WebMcpStatus>("unavailable");
 
   useEffect(() => {
@@ -343,8 +353,24 @@ export function useWebMcp(commands: RefObject<EditorCommands>): WebMcpStatus {
       },
     ];
 
+    const loggedTools = tools.map((tool) => {
+      const execute = tool.execute;
+      return {
+        ...tool,
+        execute: (input: Record<string, unknown>) => {
+          onInvocation({
+            id: crypto.randomUUID(),
+            toolName: tool.name,
+            input: structuredClone(input),
+            invokedAt: Date.now(),
+          });
+          return execute(input);
+        },
+      };
+    });
+
     void Promise.all(
-      tools.map((tool) =>
+      loggedTools.map((tool) =>
         context.registerTool(tool, { signal: controller.signal }),
       ),
     )
@@ -361,7 +387,7 @@ export function useWebMcp(commands: RefObject<EditorCommands>): WebMcpStatus {
       active = false;
       controller.abort();
     };
-  }, [commands]);
+  }, [commands, onInvocation]);
 
   return status;
 }

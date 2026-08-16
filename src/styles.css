@@ -5,15 +5,21 @@
   font-synthesis: none;
   text-rendering: geometricPrecision;
   --ink: #c8f8e8;
-  --muted: #69a293;
-  --dim: #6a9f91;
-  --line: #1b5246;
+  --muted: #89bcad;
+  --dim: #74a394;
+  --line: #215d50;
+  --control-line: #286e5e;
   --line-bright: #3a9b82;
   --panel: rgba(4, 18, 15, 0.96);
   --panel-light: rgba(8, 31, 25, 0.94);
   --cyan: #74f7d2;
   --amber: #f2b84b;
   --danger: #ef7769;
+  --font-micro: 10px;
+  --font-caption: 11px;
+  --font-control: 12px;
+  --font-body: 13px;
+  --font-accent: 14px;
 }
 
 * {
@@ -47,7 +53,7 @@ select {
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.42;
+  opacity: 0.68;
 }
 
 button:focus-visible,
@@ -135,17 +141,6 @@ a:focus-visible {
   letter-spacing: 0.12em;
 }
 
-.wordmark small {
-  display: block;
-  margin-top: 5px;
-  overflow: hidden;
-  color: var(--muted);
-  font-size: 7px;
-  letter-spacing: 0.08em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .design-controls {
   display: flex;
   align-items: center;
@@ -164,7 +159,7 @@ a:focus-visible {
 .design-controls select {
   width: 100%;
   height: 34px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-line);
   border-radius: 0;
   color: var(--ink);
   background: rgba(1, 10, 8, 0.75);
@@ -172,7 +167,7 @@ a:focus-visible {
 
 .design-name-field input {
   padding: 0 10px;
-  font-size: 12px;
+  font-size: var(--font-body);
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -181,7 +176,7 @@ a:focus-visible {
   flex: 0 1 168px;
   padding: 0 7px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: var(--font-control);
 }
 
 .button {
@@ -189,7 +184,7 @@ a:focus-visible {
   padding: 0 12px;
   border: 1px solid var(--line-bright);
   border-radius: 0;
-  font-size: 9px;
+  font-size: var(--font-control);
   font-weight: 700;
   letter-spacing: 0.08em;
   background: transparent;
@@ -232,7 +227,8 @@ a:focus-visible {
   gap: 7px;
   overflow: hidden;
   color: var(--muted);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.07em;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -273,8 +269,62 @@ a:focus-visible {
   display: flex;
   grid-area: inspector;
   flex-direction: column;
-  overflow: auto;
+  overflow: hidden;
   border-left: 1px solid var(--line);
+}
+
+.inspector-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 36px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(116, 247, 210, 0.035);
+}
+
+.inspector-tabs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 0 8px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--dim);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: transparent;
+}
+
+.inspector-tabs button + button {
+  border-left: 1px solid var(--line);
+}
+
+.inspector-tabs button:hover,
+.inspector-tabs button.active {
+  border-bottom-color: var(--amber);
+  color: var(--cyan);
+  background: rgba(116, 247, 210, 0.05);
+}
+
+.inspector-tabs b {
+  min-width: 18px;
+  padding: 2px 4px;
+  color: var(--amber);
+  font-size: var(--font-micro);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-align: center;
+  background: rgba(242, 184, 75, 0.1);
+}
+
+.inspector-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow: auto;
 }
 
 .panel-heading {
@@ -285,7 +335,7 @@ a:focus-visible {
   padding: 0 12px;
   border-bottom: 1px solid var(--line);
   color: var(--muted);
-  font-size: 9px;
+  font-size: var(--font-caption);
   font-weight: 700;
   letter-spacing: 0.13em;
   background: rgba(116, 247, 210, 0.035);
@@ -293,14 +343,15 @@ a:focus-visible {
 
 .panel-heading b {
   color: var(--cyan);
-  font-size: 9px;
+  font-size: var(--font-caption);
   font-weight: 400;
 }
 
 .rail-label {
   margin: 12px 12px 7px;
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.13em;
 }
 
@@ -316,7 +367,7 @@ a:focus-visible {
   align-items: center;
   height: 45px;
   padding: 0 9px 0 6px;
-  border: 1px solid #173f36;
+  border: 1px solid var(--control-line);
   border-radius: 0;
   color: var(--ink);
   text-align: left;
@@ -330,15 +381,16 @@ a:focus-visible {
 }
 
 .shape-button > span:nth-child(2) {
-  font-size: 10px;
+  font-size: var(--font-control);
   font-weight: 700;
+  line-height: 1.2;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .shape-button small {
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-micro);
 }
 
 .shape-glyph {
@@ -474,7 +526,8 @@ a:focus-visible {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.13em;
 }
 
@@ -483,7 +536,8 @@ a:focus-visible {
   padding: 4px 6px;
   border: 0;
   color: var(--muted);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   background: transparent;
 }
 
@@ -497,7 +551,7 @@ a:focus-visible {
 .component-list > p {
   margin: 18px 7px;
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-caption);
 }
 
 .component-list > button {
@@ -523,7 +577,7 @@ a:focus-visible {
 
 .component-list > button > span {
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-micro);
 }
 
 .component-list > button div {
@@ -539,14 +593,14 @@ a:focus-visible {
 }
 
 .component-list strong {
-  font-size: 9px;
+  font-size: var(--font-control);
   font-weight: 700;
 }
 
 .component-list small {
   margin-top: 3px;
   color: var(--dim);
-  font-size: 7px;
+  font-size: var(--font-caption);
   text-transform: uppercase;
 }
 
@@ -582,13 +636,28 @@ a:focus-visible {
   position: absolute;
   z-index: 5;
   right: 24px;
+  bottom: 16px;
   left: 24px;
   display: flex;
   justify-content: space-between;
-  color: rgba(154, 255, 223, 0.55);
-  font-size: 8px;
+  gap: 16px;
+  color: var(--dim);
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.1em;
   pointer-events: none;
+}
+
+.viewport-label span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viewport-label span:last-child {
+  flex: 0 0 auto;
+  color: var(--muted);
 }
 
 .viewport-controls {
@@ -718,7 +787,7 @@ a:focus-visible {
   padding: 0 10px;
   border: 0;
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-caption);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -741,10 +810,6 @@ a:focus-visible {
 
 .view-solid .reticle {
   opacity: 0.45;
-}
-
-.viewport-label-bottom {
-  bottom: 16px;
 }
 
 .reticle {
@@ -821,7 +886,7 @@ a:focus-visible {
   display: grid;
   place-items: center;
   color: var(--cyan);
-  font-size: 9px;
+  font-size: var(--font-caption);
   letter-spacing: 0.14em;
   background:
     linear-gradient(rgba(116, 247, 210, 0.04) 1px, transparent 1px),
@@ -832,14 +897,14 @@ a:focus-visible {
 
 .empty-frame span {
   color: var(--amber);
-  font-size: 12px;
+  font-size: var(--font-accent);
   font-weight: 700;
   letter-spacing: 0.12em;
 }
 
 .empty-frame p {
   margin: 8px 0 0;
-  font-size: 9px;
+  font-size: var(--font-control);
 }
 
 .transform-modes {
@@ -857,16 +922,17 @@ a:focus-visible {
   justify-content: center;
   gap: 5px;
   height: 50px;
-  border: 1px solid #173f36;
+  border: 1px solid var(--control-line);
   color: var(--dim);
-  font-size: 7px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   text-transform: uppercase;
   background: rgba(4, 22, 18, 0.7);
 }
 
 .transform-modes button span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: var(--font-accent);
   font-weight: 700;
 }
 
@@ -891,7 +957,8 @@ a:focus-visible {
   display: block;
   margin-bottom: 6px;
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.12em;
 }
 
@@ -899,17 +966,17 @@ a:focus-visible {
   width: 100%;
   height: 31px;
   padding: 0 8px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-line);
   border-radius: 0;
   color: var(--ink);
-  font-size: 10px;
+  font-size: var(--font-control);
   background: #020b09;
 }
 
 .part-id {
   padding: 6px 2px 12px;
   color: var(--dim);
-  font-size: 7px;
+  font-size: var(--font-micro);
   letter-spacing: 0.05em;
 }
 
@@ -923,7 +990,8 @@ a:focus-visible {
 .vector-field legend {
   margin-bottom: 6px;
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.12em;
 }
 
@@ -939,7 +1007,7 @@ a:focus-visible {
   grid-template-columns: 16px minmax(0, 1fr);
   align-items: center;
   height: 29px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-line);
   background: #020b09;
 }
 
@@ -949,7 +1017,7 @@ a:focus-visible {
   align-self: stretch;
   border-right: 1px solid var(--line);
   color: var(--amber);
-  font-size: 8px;
+  font-size: var(--font-caption);
 }
 
 .vector-field input {
@@ -959,7 +1027,7 @@ a:focus-visible {
   border: 0;
   outline: 0;
   color: var(--ink);
-  font-size: 8px;
+  font-size: var(--font-caption);
   background: transparent;
   appearance: textfield;
 }
@@ -974,7 +1042,7 @@ a:focus-visible {
   position: absolute;
   right: 4px;
   color: var(--dim);
-  font-size: 7px;
+  font-size: var(--font-micro);
   font-style: normal;
   pointer-events: none;
 }
@@ -989,7 +1057,8 @@ a:focus-visible {
 .shape-features legend {
   margin-bottom: 6px;
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.12em;
 }
 
@@ -1000,9 +1069,9 @@ a:focus-visible {
   justify-content: space-between;
   height: 32px;
   padding: 0 8px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-line);
   color: var(--muted);
-  font-size: 9px;
+  font-size: var(--font-control);
   background: #020b09;
   cursor: pointer;
 }
@@ -1059,7 +1128,7 @@ a:focus-visible {
   gap: 8px;
   height: 32px;
   padding: 4px 7px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-line);
   background: #020b09;
 }
 
@@ -1073,7 +1142,7 @@ a:focus-visible {
 
 .color-field code {
   color: var(--muted);
-  font-size: 9px;
+  font-size: var(--font-caption);
 }
 
 .texture-field {
@@ -1085,10 +1154,10 @@ a:focus-visible {
   width: 100%;
   height: 32px;
   padding: 0 8px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-line);
   border-radius: 0;
   color: var(--ink);
-  font-size: 9px;
+  font-size: var(--font-control);
   background: #020b09;
 }
 
@@ -1098,7 +1167,8 @@ a:focus-visible {
   margin-top: 12px;
   border: 1px solid rgba(239, 119, 105, 0.45);
   color: var(--danger);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.1em;
   background: rgba(239, 119, 105, 0.04);
 }
@@ -1125,14 +1195,14 @@ a:focus-visible {
 
 .inspector-empty strong {
   color: var(--muted);
-  font-size: 9px;
+  font-size: var(--font-control);
   letter-spacing: 0.1em;
 }
 
 .inspector-empty p {
   max-width: 180px;
   margin: 8px 0;
-  font-size: 8px;
+  font-size: var(--font-caption);
   line-height: 1.5;
 }
 
@@ -1149,7 +1219,8 @@ a:focus-visible {
   justify-content: space-between;
   margin-bottom: 8px;
   color: var(--dim);
-  font-size: 8px;
+  font-size: var(--font-caption);
+  font-weight: 700;
   letter-spacing: 0.1em;
 }
 
@@ -1157,12 +1228,113 @@ a:focus-visible {
 .camera-readout small {
   display: block;
   color: var(--cyan);
-  font-size: 8px;
+  font-size: var(--font-caption);
 }
 
 .camera-readout small {
   margin-top: 6px;
   color: var(--muted);
+}
+
+.webmcp-log-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 38px;
+  padding: 0 10px 0 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--dim);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.webmcp-log-heading button {
+  padding: 4px 6px;
+  border: 0;
+  color: var(--muted);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  background: transparent;
+}
+
+.webmcp-log-heading button:hover {
+  color: var(--amber);
+}
+
+.webmcp-log-empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  padding: 20px;
+  color: var(--dim);
+  text-align: center;
+}
+
+.webmcp-log-empty strong {
+  color: var(--muted);
+  font-size: var(--font-control);
+  letter-spacing: 0.1em;
+}
+
+.webmcp-log-empty p {
+  margin: 8px 0;
+  font-size: var(--font-caption);
+}
+
+.webmcp-log ol {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 9px;
+  list-style: none;
+}
+
+.webmcp-log li {
+  min-width: 0;
+  border: 1px solid var(--control-line);
+  background: #020b09;
+}
+
+.webmcp-log li > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.webmcp-log li code {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--cyan);
+  font-size: var(--font-caption);
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.webmcp-log time {
+  flex: 0 0 auto;
+  color: var(--dim);
+  font-size: var(--font-micro);
+}
+
+.webmcp-log pre {
+  max-height: 240px;
+  margin: 0;
+  padding: 8px;
+  overflow: auto;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: var(--font-micro);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .notice {
@@ -1174,7 +1346,7 @@ a:focus-visible {
   padding: 11px 14px;
   border: 1px solid var(--amber);
   color: #201703;
-  font-size: 9px;
+  font-size: var(--font-body);
   font-weight: 700;
   background: var(--amber);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
@@ -1227,7 +1399,7 @@ a:focus-visible {
 .auth-screen p {
   margin: 13px 0 25px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: var(--font-body);
   line-height: 1.6;
 }
 
@@ -1238,7 +1410,7 @@ a:focus-visible {
   padding: 0 18px;
   border: 1px solid var(--amber);
   color: #1d1504;
-  font-size: 10px;
+  font-size: var(--font-control);
   font-weight: 700;
   text-decoration: none;
   background: var(--amber);
@@ -1248,7 +1420,7 @@ a:focus-visible {
   display: block;
   margin-top: 15px;
   color: var(--danger);
-  font-size: 8px;
+  font-size: var(--font-caption);
 }
 
 @media (max-width: 1180px) {
@@ -1258,6 +1430,11 @@ a:focus-visible {
 
   .command-header {
     grid-template-columns: 194px minmax(320px, 1fr) 145px;
+  }
+
+  .wordmark strong {
+    font-size: 16px;
+    letter-spacing: 0.08em;
   }
 
   .header-status {
@@ -1299,10 +1476,13 @@ a:focus-visible {
   .wordmark-mark {
     width: 32px;
     height: 32px;
-    font-size: 11px;
   }
 
-  .wordmark small,
+  .wordmark strong {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+
   .header-status,
   .button-quiet {
     display: none;
@@ -1339,7 +1519,7 @@ a:focus-visible {
     display: flex;
     flex: 1;
     gap: 6px;
-    min-width: 960px;
+    min-width: 1280px;
     padding: 8px;
   }
 
@@ -1359,7 +1539,7 @@ a:focus-visible {
     top: 62px;
     right: 0;
     bottom: 118px;
-    width: 238px;
+    width: 264px;
     background: rgba(4, 18, 15, 0.93);
   }
 
@@ -1367,27 +1547,32 @@ a:focus-visible {
     padding: 5px;
   }
 
-  .viewport-label-bottom span:first-child {
+  .viewport-label span:first-child {
     display: none;
   }
 
-  .viewport-label-bottom {
+  .viewport-label {
     justify-content: flex-start;
   }
 
   .notice {
-    right: 254px;
+    right: 280px;
     bottom: 134px;
   }
 }
 
 @media (max-width: 570px) {
   .command-header {
-    grid-template-columns: 132px minmax(0, 1fr);
+    grid-template-columns: 58px minmax(0, 1fr);
   }
 
-  .wordmark strong {
-    font-size: 12px;
+  .wordmark {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .wordmark > div {
+    display: none;
   }
 
   .design-controls {
@@ -1396,12 +1581,18 @@ a:focus-visible {
   }
 
   .design-name-field input {
-    font-size: 9px;
+    font-size: var(--font-control);
   }
 
   .button {
     padding-inline: 7px;
-    font-size: 8px;
+    font-size: var(--font-caption);
+  }
+
+  .viewport-controls {
+    top: 75px;
+    right: auto;
+    left: 23px;
   }
 
   .inspector {
@@ -1416,16 +1607,6 @@ a:focus-visible {
 }
 
 @media (max-width: 430px) {
-  .command-header {
-    grid-template-columns: 58px minmax(0, 1fr);
-  }
-
-  .wordmark {
-    justify-content: center;
-    padding: 0;
-  }
-
-  .wordmark > div,
   .design-name-field {
     display: none;
   }
@@ -1440,10 +1621,13 @@ a:focus-visible {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
+@media (max-width: 360px) {
+  .auth-screen section {
+    padding: 30px 24px;
+  }
+
+  .auth-screen h1 {
+    font-size: 26px;
+    letter-spacing: 0.12em;
   }
 }
