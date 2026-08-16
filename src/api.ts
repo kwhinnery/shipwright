@@ -68,3 +68,10 @@ export function updateDesign(
     body: JSON.stringify(payload),
   });
 }
+
+export async function deleteDesign(id: string): Promise<void> {
+  await request<{ deletedDesignId: string }>(
+    `/api/designs/${encodeURIComponent(id)}`,
+    { method: "DELETE" },
+  );
+}

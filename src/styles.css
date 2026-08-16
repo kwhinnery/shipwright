@@ -210,6 +210,29 @@ a:focus-visible {
   color: var(--muted);
 }
 
+.button-danger {
+  border-color: rgba(239, 119, 105, 0.55);
+  color: var(--danger);
+}
+
+.button-danger:hover:not(:disabled) {
+  color: #ffd5cf;
+  background: rgba(239, 119, 105, 0.12);
+}
+
+.design-delete-button {
+  display: grid;
+  flex: 0 0 34px;
+  place-items: center;
+  width: 34px;
+  padding: 0;
+}
+
+.design-delete-button svg {
+  width: 15px;
+  height: 15px;
+}
+
 .header-status {
   display: flex;
   flex-direction: column;

@@ -148,6 +148,23 @@ app.put("/api/designs/:id", async (context) => {
   return context.json(toSavedDesign(saved));
 });
 
+app.delete("/api/designs/:id", async (context) => {
+  await ensureSchema(context.env.DB);
+  const id = context.req.param("id");
+  const result = await context.env.DB.prepare(
+    `DELETE FROM ship_designs
+     WHERE id = ? AND owner_id = ?`,
+  )
+    .bind(id, context.get("user").userId)
+    .run();
+
+  if (!result.meta.changes) {
+    return context.json({ error: "Ship design was not found." }, 404);
+  }
+
+  return context.json({ deletedDesignId: id });
+});
+
 app.notFound(async (context) => {
   const requestUrl = new URL(context.req.url);
   if (requestUrl.pathname !== "/api" && !requestUrl.pathname.startsWith("/api/")) {

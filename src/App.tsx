@@ -15,6 +15,7 @@ import {
   FileDown,
   FileUp,
   Palette,
+  Trash2,
   Undo2,
 } from "lucide-react";
 import * as api from "./api";
@@ -105,6 +106,7 @@ export default function App() {
   const [designs, setDesigns] = useState<DesignSummary[]>([]);
   const [user, setUser] = useState<SessionUser | null | undefined>(undefined);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("dirty");
+  const [isDeletingDesign, setIsDeletingDesign] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [canUndo, setCanUndo] = useState(false);
   const [canPaste, setCanPaste] = useState(false);
@@ -460,6 +462,34 @@ export default function App() {
     [refreshDesigns],
   );
 
+  const deleteDesign = useCallback(async () => {
+    const currentDesignId = designIdRef.current;
+    if (!currentDesignId) return;
+    if (savePromiseRef.current) {
+      throw new Error("Wait for the current save to finish before deleting.");
+    }
+
+    const currentDesignName = designNameRef.current.trim() || "this design";
+    const confirmed = window.confirm(
+      `Delete "${currentDesignName}"? This action cannot be undone.`,
+    );
+    if (!confirmed) return;
+
+    setIsDeletingDesign(true);
+    try {
+      await api.deleteDesign(currentDesignId);
+      setDesigns((current) =>
+        current.filter((design) => design.id !== currentDesignId),
+      );
+      if (designIdRef.current === currentDesignId) {
+        newDesign();
+        setNotice(`Deleted ${currentDesignName}.`);
+      }
+    } finally {
+      setIsDeletingDesign(false);
+    }
+  }, [newDesign]);
+
   const exportDesign = useCallback(
     () =>
       createShipwrightDesignFile(designNameRef.current, {
@@ -773,6 +803,7 @@ export default function App() {
               aria-label="Design name"
               value={designName}
               maxLength={80}
+              disabled={isDeletingDesign}
               onChange={(event) => {
                 designNameRef.current = event.target.value;
                 setDesignName(event.target.value);
@@ -784,6 +815,7 @@ export default function App() {
             aria-label="Open saved design"
             title="Open saved design"
             value={designId ?? ""}
+            disabled={isDeletingDesign}
             onChange={(event) => {
               if (!event.target.value) return;
               void loadDesign(event.target.value).catch((error) =>
@@ -801,14 +833,31 @@ export default function App() {
           <button
             className="button button-quiet"
             type="button"
+            disabled={isDeletingDesign}
             onClick={() => newDesign()}
           >
             NEW
           </button>
           <button
+            className="button button-danger design-delete-button"
+            type="button"
+            aria-label="Delete saved design"
+            title="Delete saved design"
+            disabled={!designId || saveStatus === "saving" || isDeletingDesign}
+            onClick={() =>
+              void deleteDesign().catch((error) =>
+                setNotice(`Delete failed: ${errorMessage(error)}`),
+              )
+            }
+          >
+            <Trash2 aria-hidden="true" />
+          </button>
+          <button
             className="button button-primary"
             type="button"
-            disabled={saveStatus === "saving" || user === undefined}
+            disabled={
+              saveStatus === "saving" || isDeletingDesign || user === undefined
+            }
             onClick={() =>
               void saveDesign().catch((error) => setNotice(errorMessage(error)))
             }
